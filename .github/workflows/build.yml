@@ -1,8 +1,8 @@
 name: Build Project
 on:
   workflow_dispatch:
-  push:
-    branches: [ "main" ]
+  # push:
+  #   branches: [ "main" ]
 
   # reference: https://gitlab.com/barichello/godot-ci/-/blob/master/.github/workflows/godot-ci.yml?ref_type=heads
 
