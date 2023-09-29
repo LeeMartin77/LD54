@@ -52,7 +52,7 @@ jobs:
           path: .godot
           key: ${{ runner.os }}-godot
   
-      - name: Generate Prime Numbers
+      - name: Get Godot libs
         if: steps.cache-godot.outputs.cache-hit != 'true'
         run: |
           mkdir -p .godot
