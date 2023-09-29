@@ -21,7 +21,7 @@ jobs:
   #     - name: Web Build
   #       run: |
   #         mkdir -v -p build
-  #         docker run --rm -v .:/build docker.io/barichello/godot-ci:mono-3.5.2 /build/build.sh
+  #         docker run --rm -v .:/build docker.io/barichello/godot-ci:mono-3.5.3 /build/build.sh
   #     - name: Upload Artifact
   #       uses: actions/upload-artifact@v1
   #       with:
@@ -58,8 +58,8 @@ jobs:
           mkdir -p .godot
           mkdir -p .godot/godot
           mkdir -p .godot/godot-templates
-          wget --output-document=.godot/godot.zip https://github.com/godotengine/godot/releases/download/3.5.2-stable/Godot_v3.5.3-stable_mono_linux_headless_64.zip
-          wget --output-document=.godot/godot-templates.tpz https://github.com/godotengine/godot/releases/download/3.5.2-stable/Godot_v3.5.3-stable_mono_export_templates.tpz
+          wget --output-document=.godot/godot.zip https://github.com/godotengine/godot/releases/download/3.5.3-stable/Godot_v3.5.3-stable_mono_linux_headless_64.zip
+          wget --output-document=.godot/godot-templates.tpz https://github.com/godotengine/godot/releases/download/3.5.3-stable/Godot_v3.5.3-stable_mono_export_templates.tpz
           unzip .godot/godot.zip -d .godot/godot
           unzip .godot/godot-templates.tpz -d .godot/godot-templates
 
