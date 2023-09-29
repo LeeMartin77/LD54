@@ -1,8 +1,8 @@
 name: Build Project
 on:
   workflow_dispatch:
-  # push:
-  #   branches: [ "main" ]
+  push:
+    branches: [ "main" ]
 
   # reference: https://gitlab.com/barichello/godot-ci/-/blob/master/.github/workflows/godot-ci.yml?ref_type=heads
 
@@ -10,23 +10,23 @@ env:
   EXPORT_NAME: LD54
     
 jobs:
-  export-web:
-    name: Web Export
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          lfs: true
-      - name: Web Build
-        run: |
-          mkdir -v -p build
-          docker run --rm -v .:/build docker.io/barichello/godot-ci:mono-3.5.2 /build/build.sh
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: web
-          path: build/web
+  # export-web:
+  #   name: Web Export
+  #   runs-on: ubuntu-20.04
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #       with:
+  #         lfs: true
+  #     - name: Web Build
+  #       run: |
+  #         mkdir -v -p build
+  #         docker run --rm -v .:/build docker.io/barichello/godot-ci:mono-3.5.2 /build/build.sh
+  #     - name: Upload Artifact
+  #       uses: actions/upload-artifact@v1
+  #       with:
+  #         name: web
+  #         path: build/web
       # - name: Install rsync 📚
       #   run: |
       #     apt-get update && apt-get install -y rsync
@@ -37,32 +37,43 @@ jobs:
       #     folder: build/web # The folder the action should deploy.
 
 
-  # build-and-test:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-      # - name: Setup .NET
-      #   uses: actions/setup-dotnet@v2
-      #   with:
-      #       dotnet-version: 6.0.x
-      # - name: Cache Godot files
-      #   id: cache-godot
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: .godot
-      #     key: ${{ runner.os }}-godot
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+            dotnet-version: 6.0.x
+      - name: Cache Godot files
+        id: cache-godot
+        uses: actions/cache@v3
+        with:
+          path: .godot
+          key: ${{ runner.os }}-godot
   
-      # - name: Generate Prime Numbers
-      #   if: steps.cache-godot.outputs.cache-hit != 'true'
-      #   run: |
-      #     mkdir -p .godot
-      #     mkdir -p .godot/godot
-      #     mkdir -p .godot/godot-templates
-      #     wget --output-document=.godot/godot.zip https://github.com/godotengine/godot/releases/download/3.5.2-stable/Godot_v3.5.2-stable_mono_linux_headless_64.zip
-      #     wget --output-document=.godot/godot-templates.tpz https://github.com/godotengine/godot/releases/download/3.5.2-stable/Godot_v3.5.2-stable_mono_export_templates.tpz
-      #     unzip .godot/godot.zip -d .godot/godot
+      - name: Generate Prime Numbers
+        if: steps.cache-godot.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p .godot
+          mkdir -p .godot/godot
+          mkdir -p .godot/godot-templates
+          wget --output-document=.godot/godot.zip https://github.com/godotengine/godot/releases/download/3.5.2-stable/Godot_v3.5.3-stable_mono_linux_headless_64.zip
+          wget --output-document=.godot/godot-templates.tpz https://github.com/godotengine/godot/releases/download/3.5.2-stable/Godot_v3.5.3-stable_mono_export_templates.tpz
+          unzip .godot/godot.zip -d .godot/godot
+          unzip .godot/godot-templates.tpz -d .godot/godot-templates
 
-      # # .godot/godot/Godot_v3.5.2-stable_mono_linux_headless_64/Godot_v3.5.2-stable_mono_linux_headless.64
-      # - name: Export project
-      #   run: |
-      #     .godot/godot/Godot_v3.5.2-stable_mono_linux_headless_64/Godot_v3.5.2-stable_mono_linux_headless.64 --export HTML5 ./dist
+      # .godot/godot/Godot_v3.5.3-stable_mono_linux_headless_64/Godot_v3.5.3-stable_mono_linux_headless.64
+      - name: Export project
+        run: |
+          mkdir -v -p ~/.local/share/godot/templates/3.5.3.stable.mono
+          mkdir -v -p dist/web
+          cp .godot/godot-templates/templates/webassembly_* ~/.local/share/godot/templates/3.5.3.stable.mono
+          cp -r .godot/godot-templates/templates/bcl ~/.local/share/godot/templates/3.5.3.stable.mono
+          .godot/godot/Godot_v3.5.3-stable_mono_linux_headless_64/Godot_v3.5.3-stable_mono_linux_headless.64 --export HTML5 ./dist/web/index.html
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: web
+          path: dist/web
