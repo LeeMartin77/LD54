@@ -1,5 +1,6 @@
 name: Build Project
 on:
+  workflow_dispatch:
   push:
     branches: [ "main" ]
 
@@ -20,7 +21,7 @@ jobs:
       - name: Web Build
         run: |
           mkdir -v -p build
-          docker run -it --rm -v .:/build docker.io/barichello/godot-ci:mono-3.5.2 /build/build.sh
+          docker run --rm -v .:/build docker.io/barichello/godot-ci:mono-3.5.2 /build/build.sh
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
