@@ -6,30 +6,22 @@ on:
   # reference: https://gitlab.com/barichello/godot-ci/-/blob/master/.github/workflows/godot-ci.yml?ref_type=heads
 
 env:
-  GODOT_VERSION: 3.5.2.stable.mono
   EXPORT_NAME: LD54
     
 jobs:
   export-web:
     name: Web Export
     runs-on: ubuntu-20.04
-    container:
-      image: barichello/godot-ci:mono-3.5.2
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           lfs: true
-      - name: Setup
-        run: |
-          mkdir -v -p ~/.local/share/godot/templates
-          mv /root/.local/share/godot/templates/${GODOT_VERSION} ~/.local/share/godot/templates/${GODOT_VERSION}
       - name: Web Build
         run: |
-          mkdir -v -p build/web
-          godot -v --export "HTML5" ./build/web/index.html
+          mkdir -v -p build
+          docker run -it --rm -v .:/build docker.io/barichello/godot-ci:mono-3.5.2 /build/build.sh
       - name: Upload Artifact
-        if: ${{ always() }}
         uses: actions/upload-artifact@v1
         with:
           name: web
