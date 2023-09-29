@@ -6,9 +6,8 @@ on:
   # reference: https://gitlab.com/barichello/godot-ci/-/blob/master/.github/workflows/godot-ci.yml?ref_type=heads
 
 env:
-  GODOT_VERSION: 3.5.2
+  GODOT_VERSION: mono-3.5.2
   EXPORT_NAME: LD54
-  PROJECT_PATH: dist
     
 jobs:
   export-web:
@@ -28,7 +27,6 @@ jobs:
       - name: Web Build
         run: |
           mkdir -v -p build/web
-          cd $PROJECT_PATH
           godot -v --export "HTML5" ../build/web/index.html
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
