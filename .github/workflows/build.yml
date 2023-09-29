@@ -29,6 +29,7 @@ jobs:
           mkdir -v -p build/web
           godot -v --export "HTML5" ./build/web/index.html
       - name: Upload Artifact
+        if: ${{ always() }}
         uses: actions/upload-artifact@v1
         with:
           name: web
