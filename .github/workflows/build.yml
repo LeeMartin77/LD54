@@ -4,39 +4,10 @@ on:
   push:
     branches: [ "main" ]
 
-  # reference: https://gitlab.com/barichello/godot-ci/-/blob/master/.github/workflows/godot-ci.yml?ref_type=heads
-
 env:
   EXPORT_NAME: LD54
     
 jobs:
-  # export-web:
-  #   name: Web Export
-  #   runs-on: ubuntu-20.04
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v2
-  #       with:
-  #         lfs: true
-  #     - name: Web Build
-  #       run: |
-  #         mkdir -v -p build
-  #         docker run --rm -v .:/build docker.io/barichello/godot-ci:mono-3.5.3 /build/build.sh
-  #     - name: Upload Artifact
-  #       uses: actions/upload-artifact@v1
-  #       with:
-  #         name: web
-  #         path: build/web
-      # - name: Install rsync 📚
-      #   run: |
-      #     apt-get update && apt-get install -y rsync
-      # - name: Deploy to GitHub Pages 🚀
-      #   uses: JamesIves/github-pages-deploy-action@releases/v4
-      #   with:
-      #     branch: gh-pages # The branch the action should deploy to.
-      #     folder: build/web # The folder the action should deploy.
-
-
   build-and-test:
     runs-on: ubuntu-latest
     steps:
@@ -63,7 +34,6 @@ jobs:
           unzip .godot/godot.zip -d .godot/godot
           unzip .godot/godot-templates.tpz -d .godot/godot-templates
 
-      # .godot/godot/Godot_v3.5.3-stable_mono_linux_headless_64/Godot_v3.5.3-stable_mono_linux_headless.64
       - name: Export project
         run: |
           mkdir -v -p ~/.local/share/godot/templates/3.5.3.stable.mono
