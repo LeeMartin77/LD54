@@ -10,26 +10,6 @@
 [node name="World" type="Node2D"]
 script = ExtResource( 4 )
 
-[node name="Spacial references" type="Node2D" parent="."]
-
-[node name="Sprite3" type="Sprite" parent="Spacial references"]
-position = Vector2( -291.04, -822.316 )
-scale = Vector2( 0.182044, 0.266355 )
-texture = ExtResource( 3 )
-offset = Vector2( -386.719, -336.885 )
-
-[node name="Sprite2" type="Sprite" parent="Spacial references"]
-position = Vector2( 655, 1083 )
-scale = Vector2( 0.806218, 0.823918 )
-texture = ExtResource( 3 )
-offset = Vector2( -386.719, -336.885 )
-
-[node name="Sprite" type="Sprite" parent="Spacial references"]
-position = Vector2( -204, -598 )
-scale = Vector2( 0.426667, 0.406667 )
-texture = ExtResource( 3 )
-offset = Vector2( -386.719, -336.885 )
-
 [node name="Player" parent="." instance=ExtResource( 2 )]
 
 [node name="Camera" parent="." instance=ExtResource( 5 )]

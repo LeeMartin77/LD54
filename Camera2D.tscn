@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://fonts/zector/zector.tres" type="DynamicFont" id=1]
 [ext_resource path="res://images/FrictionLight.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://images/BackdropStars1.png" type="Texture" id=7]
 [ext_resource path="res://images/BackdropStars3.png" type="Texture" id=8]
 [ext_resource path="res://images/BackdropStars2.png" type="Texture" id=9]
+[ext_resource path="res://images/BackdropStarsBacking.png" type="Texture" id=10]
 
 [node name="Camera2D" type="Camera2D"]
 rotating = true
@@ -17,6 +18,16 @@ zoom = Vector2( 2, 2 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 scroll_ignore_camera_zoom = true
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.25, 0.25 )
+motion_offset = Vector2( 0, -1 )
+motion_mirroring = Vector2( 1024, 1024 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
+modulate = Color( 0.0313726, 0.0745098, 0.211765, 1 )
+texture = ExtResource( 10 )
+region_rect = Rect2( 0, 0, 2048, 2048 )
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_offset = Vector2( 0, -1 )
