@@ -41,6 +41,8 @@ public class Player : RigidBody2D
 	private bool _inEndZone = false;
 	private float _endzoneTime = 0.0f;
 
+	private float _timeInDangerZone = 0.0f;
+
   // Called when the node enters the scene tree for the first time.
   public override void _Ready()
 	{
@@ -59,26 +61,60 @@ public class Player : RigidBody2D
 		_endzoneTime = 0.0f;
   }
 
+	public float Speed {  get
+		{
+			return Math.Abs(LinearVelocity.x) + Math.Abs(LinearVelocity.y);
+
+	} }
+
+	public bool Alive
+	{
+		get
+		{
+			return _timeInDangerZone < FilamentMaxDangerPeriodSeconds;
+		}
+	}
+
+	public bool Success
+	{
+
+	get
+	{
+	  return _endzoneTime > RequiredEndzoneTime;
+	}
+  }
 
   public override void _PhysicsProcess(float delta)
   {
-    base._Process(delta);
+		base._Process(delta);
 
-    _camera.Position = Position;
-    _camera.Rotation = Rotation;
+		if (Success)
+			{
+				return;
+			}
+
+		if (!Alive)
+			{
+			GD.Print(FilamentMaxDangerPeriodSeconds);
+				Friction = 0;
+				return;
+			}
+
+
+		_camera.Position = Position;
+		_camera.Rotation = Rotation;
 
 		var lastPoint = _filament.Points[0];
 		
 		Vector2 closestPoint = lastPoint; // bit of a cheaty hack
 		foreach (var vec in _filament.Points)
 		{
-	  var loopPoint = Geometry.GetClosestPointToSegment2d(Position, lastPoint, vec);
-			lastPoint = vec;
+			var loopPoint = Geometry.GetClosestPointToSegment2d(Position, lastPoint, vec);
+				lastPoint = vec;
 
-	  if (Position.DistanceTo(loopPoint) < Position.DistanceTo(closestPoint))
+			if (Position.DistanceTo(loopPoint) < Position.DistanceTo(closestPoint))
 			{
 				closestPoint = loopPoint;
-
 			}
 		}
 		_closestFilamentPoint = closestPoint;
@@ -90,6 +126,7 @@ public class Player : RigidBody2D
 	  {
 			//// Friction 0 in danger zone 
 			Friction = 0;
+			_timeInDangerZone += delta;
 	  }
 	  else if (distance < FilamentRideStart)
 	  {
@@ -98,12 +135,14 @@ public class Player : RigidBody2D
 			// straight percentage for now but kinda want a curve
 			var fraction = distanceToDanger / (FilamentRideStart - FilamentDangerStart);
 			Friction = DefaultFriction * fraction;
-	  }
+			_timeInDangerZone = 0;
+		}
 	  else
 	  {
 			// Friction is default
 			Friction = DefaultFriction;
-	  }
+			_timeInDangerZone = 0;
+		}
 
 		if (Input.IsActionPressed("up"))
 		{
@@ -135,12 +174,14 @@ public class Player : RigidBody2D
 
 		_camera.UpdateUI(new UIUpdate
 		{
-			PlayerAlive = true,
-			PlayerVictorious = _endzoneTime > RequiredEndzoneTime,
-			Speed = Math.Abs(LinearVelocity.x) + Math.Abs(LinearVelocity.y),
+			PlayerAlive = Alive,
+			PlayerVictorious = Success,
+			Speed = Speed,
 			Proximity = Position.DistanceTo(_closestFilamentPoint),
 			Friction = Friction,
+			TimeTilDestruction = (FilamentMaxDangerPeriodSeconds, _timeInDangerZone)
 		});
+
 		base._Process(delta);
   }
 }
