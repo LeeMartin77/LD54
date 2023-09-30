@@ -1,41 +1,54 @@
 using Godot;
 using System;
 
-public class Player : Node2D
+public class Player : RigidBody2D
 {
-	// Declare member variables here. Examples:
-	// private int a = 2;
-	// private string b = "text";
+  private Camera2D _camera;
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+	[Export]
+	public float SpeedLimit = 250f;
+  [Export]
+  public float Thrust = 2f;
+
+
+  [Export]
+  public float RotationSpeed = 0.5f;
+
+  // Called when the node enters the scene tree for the first time.
+  public override void _Ready()
 	{
-		
-	}
 
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
+		_camera = GetNode<Camera2D>("Camera2D");
+  }
+
 
   public override void _PhysicsProcess(float delta)
   {
-		if (Input.IsActionJustPressed("up"))
+		base._Process(delta);
+
+		if (Input.IsActionPressed("up"))
 		{
-			Position = new Vector2{ x = Position.x, y = Position.y - 10 };
-	}
-	if (Input.IsActionJustPressed("down"))
-	{
-	  Position = new Vector2 { x = Position.x, y = Position.y + 10 };
-	}
-	if (Input.IsActionJustPressed("left"))
-	{
-	  Position = new Vector2 { x = Position.x -10 , y = Position.y };
-	}
-	if (Input.IsActionJustPressed("right"))
-	{
-	  Position = new Vector2 { x = Position.x + 10, y = Position.y };
-	}
+			// We only ever go "up"
+			// LinearVelocity is world tied
+			LinearVelocity = LinearVelocity + (new Vector2
+			{
+				x = 0,
+				y = -Math.Max(SpeedLimit, -LinearVelocity.y + (delta * Thrust))
+			}).Rotated(Rotation);
+		}
+		if (Input.IsActionPressed("left"))
+		{
+			AngularVelocity += RotationSpeed;
+		}
+		if (Input.IsActionPressed("right"))
+		{
+			AngularVelocity -= RotationSpeed;
+		}
+  }
+
+
+  public override void _Process(float delta)
+  {
+		base._Process(delta);
   }
 }
