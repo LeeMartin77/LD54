@@ -31,12 +31,7 @@ public class Player : RigidBody2D
   [Export]
   public float DefaultFriction = 0.5f;
 
-
-  private Sprite _closestPointMarker;
-
-  private Line2D _filament;
-
-  private Vector2 _closestFilamentPoint;
+  private Node2D _closestFilamentPoint;
 
   private AnimatedSprite _exhaust;
   private AnimatedSprite _left;
@@ -52,9 +47,8 @@ public class Player : RigidBody2D
   {
 
     _camera = GetNode<Camera>("/root/World/Camera");
+    _closestFilamentPoint = GetNode<Node2D>("/root/World/ClosestPoint");
 
-    _filament = GetNode<Line2D>("/root/World/Filament");
-    _closestPointMarker = GetNode<Sprite>("/root/World/ClosestPoint");
     _exhaust = GetNode<AnimatedSprite>("Exhaust");
     _left = GetNode<AnimatedSprite>("Left");
     _right = GetNode<AnimatedSprite>("Right");
@@ -113,23 +107,7 @@ public class Player : RigidBody2D
     _camera.Position = Position;
     //_camera.Rotation = Rotation;
 
-    var lastPoint = _filament.Points[0];
-
-    Vector2 closestPoint = lastPoint; // bit of a cheaty hack
-    foreach (var vec in _filament.Points)
-    {
-      var loopPoint = Geometry.GetClosestPointToSegment2d(Position, lastPoint, vec);
-      lastPoint = vec;
-
-      if (Position.DistanceTo(loopPoint) < Position.DistanceTo(closestPoint))
-      {
-        closestPoint = loopPoint;
-      }
-    }
-    _closestFilamentPoint = closestPoint;
-
-
-    var distance = Position.DistanceTo(_closestFilamentPoint);
+    var distance = Position.DistanceTo(_closestFilamentPoint.Position);
 
     if (distance < FilamentDangerStart)
     {
@@ -172,10 +150,7 @@ public class Player : RigidBody2D
 
   public override void _Process(float delta)
   {
-    if (_closestFilamentPoint != null)
-    {
-      _closestPointMarker.Position = _closestFilamentPoint;
-    }
+
     if (_inEndZone)
     {
       _endzoneTime += delta;
@@ -186,7 +161,7 @@ public class Player : RigidBody2D
       PlayerAlive = Alive,
       PlayerVictorious = Success,
       Speed = Speed,
-      Proximity = Position.DistanceTo(_closestFilamentPoint),
+      Proximity = Position.DistanceTo(_closestFilamentPoint.Position),
       Friction = Friction,
       MaxFriction = DefaultFriction,
       TimeTilDestruction = (FilamentMaxDangerPeriodSeconds, _timeInDangerZone)

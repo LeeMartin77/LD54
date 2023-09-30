@@ -152,19 +152,19 @@ public class UI : Control
   {
     int i = 0;
     int lightsOn = (int)Math.Floor(5 * ((update.MaxFriction - update.Friction) / update.MaxFriction));
+    if (update.Friction == 0)
+    {
+      lightsOn = 5;
+    }
     foreach (var l in _friction)
     {
-      if (i > lightsOn)
+      l.Modulate = OffColor;
+      if (i < lightsOn && i < 4)
       {
-        l.Modulate = OffColor;
-      }
-      if (i <= lightsOn && i < 4)
-      {
-
         l.Modulate = new Color(0, 255, 0);
       }
 
-      if (i <= lightsOn && i == 4)
+      if (lightsOn == 5 && i == 4)
       {
         l.Modulate = new Color(255, 0, 0);
       }
@@ -175,7 +175,7 @@ public class UI : Control
 
   private void UpdateProximityLights(UIUpdate update)
   {
-    int i = 0;
+    int i = 1;
     var (maxTime, currentTime) = update.TimeTilDestruction;
     int lightsOn = (int)Math.Floor(5 * (currentTime / maxTime));
     foreach (var l in _proximity)
