@@ -30,19 +30,18 @@ FilamentMaxDangerPeriodSeconds = 3.0
 
 [node name="Camera" parent="." instance=ExtResource( 5 )]
 script = ExtResource( 6 )
-LevelName = "Sirius"
-Difficulty = 0
+LevelName = "Rigel"
 
 [node name="StartPoint" type="Node2D" parent="."]
 
 [node name="EndZone" parent="." instance=ExtResource( 1 )]
-position = Vector2( -572, -4439 )
+position = Vector2( -2241, -3873 )
 
 [node name="ClosestPoint" parent="." instance=ExtResource( 3 )]
 
 [node name="Filament" type="Line2D" parent="."]
 material = SubResource( 3 )
-points = PoolVector2Array( -3, -269, 41, -298, 75, -340, 75.8464, -402.134, 87, -452, 51, -502, 71, -590, 27, -644, 47, -712, 57, -786, 25, -912, 11, -1022, 21, -1118, -26, -1281, 47, -1386, -18, -1558, 47, -1674, 27, -1796, 56, -1895, -4, -2019, -131, -2101, -154, -2206, -258, -2257, -287, -2367, -388, -2426, -400, -2514, -470, -2590, -487, -2740, -343, -2853, -355, -2995, -253, -3148, -261, -3292, -210, -3405, -185, -3529, -193, -3722, -264, -3911, -383, -4036, -388, -4169, -438, -4253 )
+points = PoolVector2Array( -172, -360, -156, -732, 421, -1008, 497, -1466, 370, -1847, -202, -2178, -778, -2263, -1418, -2220, -1622, -2348, -1343, -2842, -730, -3070, -39, -3220, 25, -3655, -60, -3890, -224, -4082, -744, -4325, -1058, -4453, -1414, -4560, -1999, -4710, -2740, -4767, -3403, -4688, -3510, -4467, -3488, -4047, -3239, -3819, -2918, -3698, -2583, -3690, -2390, -3787 )
 width = 75.0
 width_curve = SubResource( 1 )
 default_color = Color( 0.588235, 0.627451, 0.839216, 1 )
