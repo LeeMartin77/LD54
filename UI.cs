@@ -10,13 +10,13 @@ public class UI : Control
   private RichTextLabel _spd;
   private RichTextLabel _frc;
   private RichTextLabel _alert;
-    private RichTextLabel _flight;
-    private RichTextLabel _fuel;
+  private RichTextLabel _flight;
+  private RichTextLabel _fuel;
 
-    private (TouchScreenButton, RichTextLabel) _thrust;
-  private (TouchScreenButton, RichTextLabel) _left;
-  private (TouchScreenButton, RichTextLabel) _right;
-  private (TouchScreenButton, RichTextLabel) _reset;
+  private Button _thrust;
+  private Button _left;
+  private Button _right;
+  private Button _reset;
 
 
   private TextureRect[] _friction;
@@ -27,7 +27,7 @@ public class UI : Control
   public Color OffColor = new Color(10, 10, 10, 0.2f);
   public Color LitButton = new Color(255, 255, 0);
 
-    float flightTime = 0.0f;
+  float flightTime = 0.0f;
 
   public override void _Ready()
   {
@@ -44,13 +44,13 @@ public class UI : Control
     _fuel = GetNode<RichTextLabel>("FUEL");
 
 
-        List<TextureRect> frictionLights = new List<TextureRect>();
+    List<TextureRect> frictionLights = new List<TextureRect>();
     List<TextureRect> proximityLights = new List<TextureRect>();
 
-    _thrust = (GetNode<TouchScreenButton>("Thrust"), GetNode<RichTextLabel>("Thrust/lbl"));
-    _left = (GetNode<TouchScreenButton>("Left"), GetNode<RichTextLabel>("Left/lbl"));
-    _right = (GetNode<TouchScreenButton>("Right"), GetNode<RichTextLabel>("Right/lbl"));
-    _reset = (GetNode<TouchScreenButton>("RESET"), GetNode<RichTextLabel>("RESET/lbl"));
+    _thrust = GetNode<Button>("Thrust");
+    _left = GetNode<Button>("Left");
+    _right = GetNode<Button>("Right");
+    _reset = GetNode<Button>("RESET");
 
     foreach (var lbl in new string[] { "1", "2", "3", "4", "5" })
     {
@@ -63,59 +63,91 @@ public class UI : Control
   }
 
   public override void _Process(float delta)
-   {
+  {
 
     if (_latestUpdate.PlayerAlive && !_latestUpdate.PlayerVictorious)
     {
-        flightTime += delta;
-        _flight.Text = $"FLT {flightTime:000.0}";
+      flightTime += delta;
+      _flight.Text = $"FLT {flightTime:000.0}";
     }
-      UpdateButtons();
+    UpdateButtons();
+  }
+
+  public void OnPressReset()
+  {
+    Input.ActionPress("reset");
+  }
+
+  public void OnReleaseReset()
+  {
+    Input.ActionRelease("reset");
+  }
+
+  public void OnPressLeft()
+  {
+    Input.ActionPress("left");
+  }
+
+  public void OnReleaseLeft()
+  {
+    Input.ActionRelease("left");
+  }
+
+  public void OnPressRight()
+  {
+    Input.ActionPress("right");
+  }
+
+  public void OnReleaseRight()
+  {
+    Input.ActionRelease("right");
+  }
+
+  public void OnPressUp()
+  {
+    Input.ActionPress("up");
+  }
+  public void OnReleaseUp()
+  {
+    Input.ActionRelease("up");
   }
 
   private void UpdateButtons()
   {
-    if (_latestUpdate.PlayerAlive)
-    {
-      _reset.Item1.Hide();
-      _reset.Item2.Hide();
-    }
-    else
-    {
-      _reset.Item1.Show();
-      _reset.Item2.Show();
-    }
     if (_latestUpdate.PlayerAlive && Input.IsActionPressed("up"))
     {
-      _thrust.Item1.Modulate = LitButton;
-      _thrust.Item2.Modulate = LitButton;
+      _thrust.Modulate = LitButton;
     }
     else
     {
-      _thrust.Item1.Modulate = OffColor;
-      _thrust.Item2.Modulate = OffColor;
+      _thrust.Modulate = OffColor;
     }
     if (_latestUpdate.PlayerAlive && Input.IsActionPressed("left"))
     {
-      _left.Item1.Modulate = LitButton;
-      _left.Item2.Modulate = LitButton;
+      _left.Modulate = LitButton;
     }
     else
     {
 
-      _left.Item1.Modulate = OffColor;
-      _left.Item2.Modulate = OffColor;
+      _left.Modulate = OffColor;
     }
     if (_latestUpdate.PlayerAlive && Input.IsActionPressed("right"))
     {
-      _right.Item1.Modulate = LitButton;
-      _right.Item2.Modulate = LitButton;
+      _right.Modulate = LitButton;
     }
     else
     {
 
-      _right.Item1.Modulate = OffColor;
-      _right.Item2.Modulate = OffColor;
+      _right.Modulate = OffColor;
+    }
+
+    if (Input.IsActionPressed("reset"))
+    {
+      _reset.Modulate = LitButton;
+    }
+    else
+    {
+      _reset.Modulate = OffColor;
     }
   }
 

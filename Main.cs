@@ -23,7 +23,7 @@ public class Main : Node2D
 	public override void _Process(float delta)
 	{
 
-	  if (Input.IsActionJustPressed("reset"))
+	  if (Input.IsActionJustReleased("reset"))
 	  {
 			GetTree().ReloadCurrentScene();
 	  }
