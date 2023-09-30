@@ -58,6 +58,11 @@ public class Player : RigidBody2D
 
   public void SetEndZone(bool inZone)
   {
+    if (Success || !Alive)
+        {
+            //We just reset to go back, so if success, we don't allow to go back
+            return;
+        }
     _inEndZone = inZone;
     _endzoneTime = 0.0f;
   }
@@ -94,6 +99,12 @@ public class Player : RigidBody2D
 
     if (Success)
     {
+      Friction = 1;
+            LinearVelocity = new Vector2
+            {
+                x = Mathf.Lerp(LinearVelocity.x, 0, delta),
+                y = Mathf.Lerp(LinearVelocity.y, 0, delta),
+            };
       return;
     }
 
