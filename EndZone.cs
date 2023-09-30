@@ -33,6 +33,15 @@ public class EndZone : Area2D
 	}
   }
 
+  public override void _Process(float delta)
+  {
+    base._Process(delta);
+		RotationDegrees += 45 * delta;
+		if (RotationDegrees > 360)
+		{
+      RotationDegrees -= 360;
+		}
+  }
 }
 
 
