@@ -22,6 +22,13 @@ public class Player : RigidBody2D
 
   private RichTextLabel _frictionLabel;
   private RichTextLabel _maxSpeedLabel;
+  private RichTextLabel _proximityLabel;
+
+  private Sprite _closestPointMarker;
+
+	private Line2D _filament;
+
+	private Vector2 _closestFilamentPoint;
 
   // Called when the node enters the scene tree for the first time.
   public override void _Ready()
@@ -33,14 +40,33 @@ public class Player : RigidBody2D
 		_rotationLabel = GetNode<RichTextLabel>("UI/CurrentRotation");
 		_maxSpeedLabel = GetNode<RichTextLabel>("UI/CurrentLimit");
 		_frictionLabel = GetNode<RichTextLabel>("UI/CurrentFriction");
+	_proximityLabel = GetNode<RichTextLabel>("UI/CurrentProximity");
 
-		Friction = DefaultFriction;
+	_filament = GetNode<Line2D>("/root/World/Filament");
+	_closestPointMarker = GetNode<Sprite>("/root/World/ClosestPoint");
+
+	Friction = DefaultFriction;
   }
 
 
   public override void _PhysicsProcess(float delta)
   {
 		base._Process(delta);
+
+		var lastPoint = _filament.Points[0];
+		
+	Vector2 closestPoint = lastPoint; // bit of a cheaty hack
+		foreach (var vec in _filament.Points)
+		{
+	  var loopPoint = Geometry.GetClosestPointToSegment2d(Position, lastPoint, vec);
+			lastPoint = vec;
+
+	  if (Position.DistanceTo(loopPoint) < Position.DistanceTo(closestPoint))
+			{
+				closestPoint = loopPoint;
+			}
+		}
+		_closestFilamentPoint = closestPoint;
 
 		if (Input.IsActionPressed("up"))
 		{
@@ -67,6 +93,11 @@ public class Player : RigidBody2D
 
   public override void _Process(float delta)
   {
+		if (_closestFilamentPoint != null)
+		{
+			_closestPointMarker.Position = _closestFilamentPoint;
+	  _proximityLabel.Text = $"{Position.DistanceTo(_closestFilamentPoint)} Proximity";
+	}
 		base._Process(delta);
 		_speedLabel.Text = $"{Math.Abs(LinearVelocity.x) + Math.Abs(LinearVelocity.y)} Speed";
 		_rotationLabel.Text = $"{RotationDegrees} Rotation";
