@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://fonts/zector/zector.tres" type="DynamicFont" id=1]
 [ext_resource path="res://images/FrictionLight.png" type="Texture" id=2]
 [ext_resource path="res://images/ProxLight.png" type="Texture" id=3]
 [ext_resource path="res://fonts/zector/zector_big.tres" type="DynamicFont" id=4]
 [ext_resource path="res://UI.cs" type="Script" id=5]
+[ext_resource path="res://images/BTTN.png" type="Texture" id=6]
 
 [node name="Camera2D" type="Camera2D"]
 rotating = true
@@ -19,50 +20,50 @@ script = ExtResource( 5 )
 [node name="PRX" type="RichTextLabel" parent="UI"]
 modulate = Color( 1, 0.984314, 0, 1 )
 margin_left = -529.0
-margin_top = 839.0
+margin_top = 539.0
 margin_right = -426.0
-margin_bottom = 900.0
+margin_bottom = 600.0
 custom_fonts/normal_font = ExtResource( 1 )
 text = "PRX"
 
 [node name="STAT" type="RichTextLabel" parent="UI"]
 margin_left = -529.0
-margin_top = 919.0
+margin_top = 619.0
 margin_right = -394.0
-margin_bottom = 979.0
+margin_bottom = 679.0
 custom_fonts/normal_font = ExtResource( 1 )
 text = "Safe"
 
 [node name="SPD" type="RichTextLabel" parent="UI"]
 margin_left = -116.0
-margin_top = 919.0
+margin_top = 619.0
 margin_right = 131.0
-margin_bottom = 986.0
+margin_bottom = 686.0
 custom_fonts/normal_font = ExtResource( 1 )
 text = "0000 SPD"
 
 [node name="FRC" type="RichTextLabel" parent="UI"]
 modulate = Color( 0, 1, 0, 1 )
 margin_left = -529.0
-margin_top = 737.0
+margin_top = 437.0
 margin_right = -416.0
-margin_bottom = 810.0
+margin_bottom = 510.0
 custom_fonts/normal_font = ExtResource( 1 )
 text = "FRC"
 
 [node name="ALERT" type="RichTextLabel" parent="UI"]
 margin_left = -523.0
-margin_top = 554.0
+margin_top = 254.0
 margin_right = 547.0
-margin_bottom = 682.0
+margin_bottom = 382.0
 custom_fonts/normal_font = ExtResource( 4 )
 text = "L.O.S"
 
 [node name="Friction" type="HBoxContainer" parent="UI"]
 margin_left = -418.0
-margin_top = 710.0
+margin_top = 410.0
 margin_right = -150.0
-margin_bottom = 760.0
+margin_bottom = 460.0
 rect_scale = Vector2( 2, 2 )
 
 [node name="1" type="TextureRect" parent="UI/Friction"]
@@ -101,9 +102,9 @@ texture = ExtResource( 2 )
 
 [node name="Proximity" type="HBoxContainer" parent="UI"]
 margin_left = -418.0
-margin_top = 838.0
+margin_top = 538.0
 margin_right = -150.0
-margin_bottom = 760.0
+margin_bottom = 563.0
 rect_scale = Vector2( 2, 2 )
 
 [node name="1" type="TextureRect" parent="UI/Proximity"]
@@ -139,3 +140,61 @@ margin_left = 216.0
 margin_right = 266.0
 margin_bottom = 25.0
 texture = ExtResource( 3 )
+
+[node name="Thrust" type="TouchScreenButton" parent="UI"]
+position = Vector2( -529, 739 )
+scale = Vector2( 1.5, 1.5 )
+normal = ExtResource( 6 )
+action = "up"
+
+[node name="lbl" type="RichTextLabel" parent="UI/Thrust"]
+margin_left = 18.0
+margin_top = 49.0
+margin_right = 150.0
+margin_bottom = 111.0
+custom_fonts/normal_font = ExtResource( 1 )
+text = "THST"
+
+[node name="RESET" type="TouchScreenButton" parent="UI"]
+position = Vector2( 295, 417 )
+scale = Vector2( 1.5, 1.5 )
+normal = ExtResource( 6 )
+action = "reset"
+
+[node name="lbl" type="RichTextLabel" parent="UI/RESET"]
+margin_left = 31.0
+margin_top = 49.0
+margin_right = 163.0
+margin_bottom = 111.0
+custom_fonts/normal_font = ExtResource( 1 )
+text = "RST"
+
+[node name="Left" type="TouchScreenButton" parent="UI"]
+position = Vector2( 44, 739 )
+scale = Vector2( 1.5, 1.5 )
+normal = ExtResource( 6 )
+passby_press = true
+action = "left"
+
+[node name="lbl" type="RichTextLabel" parent="UI/Left"]
+margin_left = 45.5
+margin_top = 23.5
+margin_right = 123.5
+margin_bottom = 143.5
+custom_fonts/normal_font = ExtResource( 4 )
+text = "<"
+
+[node name="Right" type="TouchScreenButton" parent="UI"]
+position = Vector2( 295, 739 )
+scale = Vector2( 1.5, 1.5 )
+normal = ExtResource( 6 )
+passby_press = true
+action = "right"
+
+[node name="lbl" type="RichTextLabel" parent="UI/Right"]
+margin_left = 45.5
+margin_top = 23.5
+margin_right = 123.5
+margin_bottom = 143.5
+custom_fonts/normal_font = ExtResource( 4 )
+text = ">"
