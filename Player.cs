@@ -179,6 +179,7 @@ public class Player : RigidBody2D
 			Speed = Speed,
 			Proximity = Position.DistanceTo(_closestFilamentPoint),
 			Friction = Friction,
+			MaxFriction = DefaultFriction,
 			TimeTilDestruction = (FilamentMaxDangerPeriodSeconds, _timeInDangerZone)
 		});
 
