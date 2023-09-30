@@ -35,8 +35,6 @@ public class Player : RigidBody2D
 		if (Input.IsActionPressed("up"))
 		{
 			// We only ever go "up"
-			// LinearVelocity is world tied
-			// this is dumb maths unfuck it
 			Vector2 angledThrust = (new Vector2(0, -1) * (delta * Thrust)).Rotated(Rotation);
 			LinearVelocity += angledThrust;
 			// clamp to "limit"
