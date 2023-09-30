@@ -3,7 +3,7 @@ using System;
 
 public class Player : RigidBody2D
 {
-  private Camera2D _camera;
+  private Camera _camera;
 
 	[Export]
 	public float SpeedLimit = 500f;
@@ -31,11 +31,6 @@ public class Player : RigidBody2D
 	[Export]
 	public float DefaultFriction = 0.5f;
 
-	private RichTextLabel _speedLabel;
-  private RichTextLabel _rotationLabel;
-
-  private RichTextLabel _frictionLabel;
-  private RichTextLabel _proximityLabel;
 
   private Sprite _closestPointMarker;
 
@@ -50,12 +45,7 @@ public class Player : RigidBody2D
   public override void _Ready()
 	{
 
-		_camera = GetNode<Camera2D>("Camera2D");
-
-		_speedLabel = GetNode<RichTextLabel>("UI/CurrentSpeed");
-		_rotationLabel = GetNode<RichTextLabel>("UI/CurrentRotation");
-		_frictionLabel = GetNode<RichTextLabel>("UI/CurrentFriction");
-		_proximityLabel = GetNode<RichTextLabel>("UI/CurrentProximity");
+		_camera = GetNode<Camera>("/root/World/Camera");
 
 		_filament = GetNode<Line2D>("/root/World/Filament");
 		_closestPointMarker = GetNode<Sprite>("/root/World/ClosestPoint");
@@ -72,11 +62,14 @@ public class Player : RigidBody2D
 
   public override void _PhysicsProcess(float delta)
   {
-		base._Process(delta);
+    base._Process(delta);
+
+    _camera.Position = Position;
+    _camera.Rotation = Rotation;
 
 		var lastPoint = _filament.Points[0];
 		
-	Vector2 closestPoint = lastPoint; // bit of a cheaty hack
+		Vector2 closestPoint = lastPoint; // bit of a cheaty hack
 		foreach (var vec in _filament.Points)
 		{
 	  var loopPoint = Geometry.GetClosestPointToSegment2d(Position, lastPoint, vec);
@@ -131,35 +124,23 @@ public class Player : RigidBody2D
 
   public override void _Process(float delta)
   {
-    if (_closestFilamentPoint != null)
-		{
-			_closestPointMarker.Position = _closestFilamentPoint;
-	  _proximityLabel.Text = $"{Position.DistanceTo(_closestFilamentPoint)} Proximity";
-	}
+		if (_closestFilamentPoint != null)
+			{
+				_closestPointMarker.Position = _closestFilamentPoint;
+		}
 		if (_inEndZone)
 		{
-			_endzoneTime += delta;
+				_endzoneTime += delta;
 		}
 
-		if (_endzoneTime > RequiredEndzoneTime)
+		_camera.UpdateUI(new UIUpdate
 		{
-			GD.Print("You win!");
-		}
+			PlayerAlive = true,
+			PlayerVictorious = _endzoneTime > RequiredEndzoneTime,
+			Speed = Math.Abs(LinearVelocity.x) + Math.Abs(LinearVelocity.y),
+			Proximity = Position.DistanceTo(_closestFilamentPoint),
+			Friction = Friction,
+		});
 		base._Process(delta);
-		_speedLabel.Text = $"{Math.Abs(LinearVelocity.x) + Math.Abs(LinearVelocity.y)} Speed";
-		_rotationLabel.Text = $"{RotationDegrees} Rotation";
-
-
-	_frictionLabel.Text = $"{Friction} Friction";
   }
-
-	public void Reset(Vector2 startPoint)
-	{
-		_inEndZone = false;
-		_endzoneTime = 0.0f;
-		Position = startPoint;
-		LinearVelocity = new Vector2();
-		AngularVelocity = 0.0f;
-		Rotation = 0;
-	}
 }

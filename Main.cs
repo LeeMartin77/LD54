@@ -7,25 +7,25 @@ public class Main : Node2D
   // private int a = 2;
   // private string b = "text";
 
-    // Called when the node enters the scene tree for the first time.
+	// Called when the node enters the scene tree for the first time.
 
-    private Player _player;
+	private Player _player;
 
-    private Node2D _startPoint;
+	private Node2D _startPoint;
 
-    public override void _Ready()
-    {
-      _startPoint = GetNode<Node2D>("StartPoint");
+	public override void _Ready()
+	{
+	  _startPoint = GetNode<Node2D>("StartPoint");
 
-      _player = GetNode<Player>("Player");
-    }
+	  _player = GetNode<Player>("Player");
+	}
 
-    public override void _Process(float delta)
-    {
+	public override void _Process(float delta)
+	{
 
-      if (Input.IsActionJustPressed("reset"))
-      {
-      _player.Reset(_startPoint.Position);
-      }
-    }
+	  if (Input.IsActionJustPressed("reset"))
+	  {
+			GetTree().ReloadCurrentScene();
+	  }
+	}
 }
