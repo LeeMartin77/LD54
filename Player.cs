@@ -8,7 +8,7 @@ public class Player : RigidBody2D
 	[Export]
 	public float SpeedLimit = 250f;
   [Export]
-  public float Thrust = 2f;
+  public float Thrust = 20f;
 
 
   [Export]
@@ -37,13 +37,13 @@ public class Player : RigidBody2D
 			// We only ever go "up"
 			// LinearVelocity is world tied
 			// this is dumb maths unfuck it
-			float currentVelocity = Math.Abs(LinearVelocity.x) + Math.Abs(LinearVelocity.y);
-			currentVelocity = Math.Max(SpeedLimit, currentVelocity + (delta * Thrust));
-			LinearVelocity = new Vector2
+			Vector2 angledThrust = (new Vector2(0, -1) * (delta * Thrust)).Rotated(Rotation);
+			LinearVelocity += angledThrust;
+			// clamp to "limit"
+			if (Math.Abs(LinearVelocity.x) + Math.Abs(LinearVelocity.y) > SpeedLimit)
 			{
-				x = 0,
-				y = -currentVelocity
-			}.Rotated(Rotation);
+		LinearVelocity = new Vector2(0, -SpeedLimit).Rotated(Rotation);
+	  }
 		}
 		if (Input.IsActionPressed("left"))
 		{
