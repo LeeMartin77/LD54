@@ -111,7 +111,7 @@ public class Player : RigidBody2D
 
 
     _camera.Position = Position;
-    _camera.Rotation = Rotation;
+    //_camera.Rotation = Rotation;
 
     var lastPoint = _filament.Points[0];
 
