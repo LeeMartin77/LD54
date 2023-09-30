@@ -38,6 +38,10 @@ public class Player : RigidBody2D
 
   private Vector2 _closestFilamentPoint;
 
+  private AnimatedSprite _exhaust;
+  private AnimatedSprite _left;
+  private AnimatedSprite _right;
+
   private bool _inEndZone = false;
   private float _endzoneTime = 0.0f;
 
@@ -51,6 +55,9 @@ public class Player : RigidBody2D
 
     _filament = GetNode<Line2D>("/root/World/Filament");
     _closestPointMarker = GetNode<Sprite>("/root/World/ClosestPoint");
+    _exhaust = GetNode<AnimatedSprite>("Exhaust");
+    _left = GetNode<AnimatedSprite>("Left");
+    _right = GetNode<AnimatedSprite>("Right");
 
     Friction = DefaultFriction;
   }
@@ -184,6 +191,33 @@ public class Player : RigidBody2D
       MaxFriction = DefaultFriction,
       TimeTilDestruction = (FilamentMaxDangerPeriodSeconds, _timeInDangerZone)
     });
+
+    if (Alive && Input.IsActionPressed("up"))
+    {
+      _exhaust.Show();
+    } 
+    else
+    {
+      _exhaust.Hide();
+    }
+
+    if (Alive && Input.IsActionPressed("left"))
+    {
+      _left.Show();
+    }
+    else
+    {
+      _left.Hide();
+    }
+
+    if (Alive && Input.IsActionPressed("right"))
+    {
+      _right.Show();
+    }
+    else
+    {
+      _right.Hide();
+    }
 
     base._Process(delta);
   }
