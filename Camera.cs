@@ -14,40 +14,17 @@ public struct UIUpdate
 
 public class Camera : Camera2D
 {
-  private RichTextLabel _speedLabel;
-  private RichTextLabel _timeTilDestruction;
-
-  private RichTextLabel _frictionLabel;
-  private RichTextLabel _proximityLabel;
+  private UI _ui;
   public override void _Ready()
 	{
 
-    _speedLabel = GetNode<RichTextLabel>("UI/CurrentSpeed");
-    _frictionLabel = GetNode<RichTextLabel>("UI/CurrentFriction");
-    _proximityLabel = GetNode<RichTextLabel>("UI/CurrentProximity");
-    _timeTilDestruction = GetNode<RichTextLabel>("UI/TimeTilDestruction");
+    _ui = GetNode<UI>("UI");
 
   }
 
   public void UpdateUI(UIUpdate update)
   {
-    _proximityLabel.Text = $"{update.Proximity} Proximity";
-    _speedLabel.Text = $"{update.Speed} Speed";
-    _frictionLabel.Text = $"{update.Friction} Friction";
-
-    var (maxTime, currentTime) = update.TimeTilDestruction;
-    if (currentTime == 0)
-    {
-      _timeTilDestruction.Text = "Safe";
-    } 
-    else if (currentTime < maxTime)
-    {
-      _frictionLabel.Text = $"{maxTime - currentTime:0.00} Til Deresolution";
-    }
-    if (!update.PlayerAlive)
-    {
-      _timeTilDestruction.Text = "Phase Deresolution Detected";
-    }
+    _ui.UpdateData(update);
   }
 
   //  // Called every frame. 'delta' is the elapsed time since the previous frame.

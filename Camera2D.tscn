@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://fonts/zector/zector.tres" type="DynamicFont" id=1]
+[ext_resource path="res://images/FrictionLight.png" type="Texture" id=2]
+[ext_resource path="res://images/ProxLight.png" type="Texture" id=3]
+[ext_resource path="res://fonts/zector/zector_big.tres" type="DynamicFont" id=4]
+[ext_resource path="res://UI.cs" type="Script" id=5]
 
 [node name="Camera2D" type="Camera2D"]
 rotating = true
@@ -10,35 +14,128 @@ zoom = Vector2( 2, 2 )
 [node name="UI" type="Control" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
+script = ExtResource( 5 )
 
-[node name="CurrentProximity" type="RichTextLabel" parent="UI"]
-margin_left = 240.0
-margin_top = -118.0
-margin_right = 890.0
-margin_bottom = 22.0
+[node name="PRX" type="RichTextLabel" parent="UI"]
+modulate = Color( 1, 0.984314, 0, 1 )
+margin_left = -529.0
+margin_top = 839.0
+margin_right = -426.0
+margin_bottom = 900.0
 custom_fonts/normal_font = ExtResource( 1 )
-text = "0 Proximity"
+text = "PRX"
 
-[node name="TimeTilDestruction" type="RichTextLabel" parent="UI"]
-margin_left = 240.0
-margin_top = -180.0
-margin_right = 890.0
-margin_bottom = 22.0
+[node name="STAT" type="RichTextLabel" parent="UI"]
+margin_left = -529.0
+margin_top = 919.0
+margin_right = -394.0
+margin_bottom = 979.0
 custom_fonts/normal_font = ExtResource( 1 )
 text = "Safe"
 
-[node name="CurrentSpeed" type="RichTextLabel" parent="UI"]
-margin_left = 240.0
-margin_top = -59.0
-margin_right = 650.0
-margin_bottom = 81.0
+[node name="SPD" type="RichTextLabel" parent="UI"]
+margin_left = -116.0
+margin_top = 919.0
+margin_right = 131.0
+margin_bottom = 986.0
 custom_fonts/normal_font = ExtResource( 1 )
-text = "0 Speed"
+text = "0000 SPD"
 
-[node name="CurrentFriction" type="RichTextLabel" parent="UI"]
-margin_left = 240.0
-margin_top = 141.0
-margin_right = 891.0
-margin_bottom = 183.0
+[node name="FRC" type="RichTextLabel" parent="UI"]
+modulate = Color( 0, 1, 0, 1 )
+margin_left = -529.0
+margin_top = 737.0
+margin_right = -416.0
+margin_bottom = 810.0
 custom_fonts/normal_font = ExtResource( 1 )
-text = "0 Friction"
+text = "FRC"
+
+[node name="ALERT" type="RichTextLabel" parent="UI"]
+margin_left = -523.0
+margin_top = 554.0
+margin_right = 547.0
+margin_bottom = 682.0
+custom_fonts/normal_font = ExtResource( 4 )
+text = "L.O.S"
+
+[node name="Friction" type="HBoxContainer" parent="UI"]
+margin_left = -418.0
+margin_top = 710.0
+margin_right = -150.0
+margin_bottom = 760.0
+rect_scale = Vector2( 2, 2 )
+
+[node name="1" type="TextureRect" parent="UI/Friction"]
+modulate = Color( 0, 1, 0, 1 )
+margin_right = 50.0
+margin_bottom = 50.0
+texture = ExtResource( 2 )
+
+[node name="2" type="TextureRect" parent="UI/Friction"]
+modulate = Color( 0, 1, 0, 1 )
+margin_left = 54.0
+margin_right = 104.0
+margin_bottom = 50.0
+texture = ExtResource( 2 )
+
+[node name="3" type="TextureRect" parent="UI/Friction"]
+modulate = Color( 0, 1, 0, 1 )
+margin_left = 108.0
+margin_right = 158.0
+margin_bottom = 50.0
+texture = ExtResource( 2 )
+
+[node name="4" type="TextureRect" parent="UI/Friction"]
+modulate = Color( 0, 1, 0, 1 )
+margin_left = 162.0
+margin_right = 212.0
+margin_bottom = 50.0
+texture = ExtResource( 2 )
+
+[node name="5" type="TextureRect" parent="UI/Friction"]
+modulate = Color( 1, 0, 0, 1 )
+margin_left = 216.0
+margin_right = 266.0
+margin_bottom = 50.0
+texture = ExtResource( 2 )
+
+[node name="Proximity" type="HBoxContainer" parent="UI"]
+margin_left = -418.0
+margin_top = 838.0
+margin_right = -150.0
+margin_bottom = 760.0
+rect_scale = Vector2( 2, 2 )
+
+[node name="1" type="TextureRect" parent="UI/Proximity"]
+modulate = Color( 1, 1, 0, 1 )
+margin_right = 50.0
+margin_bottom = 25.0
+texture = ExtResource( 3 )
+
+[node name="2" type="TextureRect" parent="UI/Proximity"]
+modulate = Color( 1, 1, 0, 1 )
+margin_left = 54.0
+margin_right = 104.0
+margin_bottom = 25.0
+texture = ExtResource( 3 )
+
+[node name="3" type="TextureRect" parent="UI/Proximity"]
+modulate = Color( 1, 1, 0, 1 )
+margin_left = 108.0
+margin_right = 158.0
+margin_bottom = 25.0
+texture = ExtResource( 3 )
+
+[node name="4" type="TextureRect" parent="UI/Proximity"]
+modulate = Color( 1, 1, 0, 1 )
+margin_left = 162.0
+margin_right = 212.0
+margin_bottom = 25.0
+texture = ExtResource( 3 )
+
+[node name="5" type="TextureRect" parent="UI/Proximity"]
+modulate = Color( 1, 1, 0, 1 )
+margin_left = 216.0
+margin_right = 266.0
+margin_bottom = 25.0
+texture = ExtResource( 3 )
