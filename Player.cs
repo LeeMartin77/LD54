@@ -22,7 +22,7 @@ public class Player : RigidBody2D
 
 
   [Export]
-  public float RequiredEndzoneTime = 2.0f;
+  public float RequiredEndzoneTime = 1.5f;
 
 
   [Export]

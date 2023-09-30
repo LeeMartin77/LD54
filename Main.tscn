@@ -34,7 +34,7 @@ script = ExtResource( 6 )
 [node name="StartPoint" type="Node2D" parent="."]
 
 [node name="EndZone" parent="." instance=ExtResource( 1 )]
-position = Vector2( 31, -461 )
+position = Vector2( -2241, -3873 )
 
 [node name="ClosestPoint" parent="." instance=ExtResource( 3 )]
 
