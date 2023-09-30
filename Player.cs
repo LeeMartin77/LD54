@@ -12,7 +12,7 @@ public class Player : RigidBody2D
 
 
   [Export]
-  public float RotationSpeed = 0.5f;
+  public float RotationSpeed = 2f;
 
   // Called when the node enters the scene tree for the first time.
   public override void _Ready()
@@ -40,11 +40,11 @@ public class Player : RigidBody2D
 		}
 		if (Input.IsActionPressed("left"))
 		{
-			AngularVelocity += RotationSpeed;
+			AngularVelocity += RotationSpeed * delta;
 		}
 		if (Input.IsActionPressed("right"))
 		{
-			AngularVelocity -= RotationSpeed;
+			AngularVelocity -= RotationSpeed * delta;
 		}
   }
 
