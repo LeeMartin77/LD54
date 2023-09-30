@@ -10,6 +10,7 @@ public struct UIUpdate
   public float Proximity { get; set; }
   public float Friction { get; set; }
   public float MaxFriction { get; set; }
+  public float RemainingFuel { get; set; }
   public (float, float) TimeTilDestruction { get; set; } // Max time, current time
 }
 

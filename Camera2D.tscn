@@ -102,11 +102,27 @@ text = "FRC"
 
 [node name="ALERT" type="RichTextLabel" parent="UI"]
 margin_left = -523.0
-margin_top = 254.0
+margin_top = 176.0
 margin_right = 547.0
-margin_bottom = 382.0
+margin_bottom = 304.0
 custom_fonts/normal_font = ExtResource( 4 )
 text = "L.O.S"
+
+[node name="FLIGHT" type="RichTextLabel" parent="UI"]
+margin_left = -527.0
+margin_top = 321.0
+margin_right = -26.0
+margin_bottom = 432.0
+custom_fonts/normal_font = ExtResource( 1 )
+text = "FLT 00.0"
+
+[node name="FUEL" type="RichTextLabel" parent="UI"]
+margin_left = -196.0
+margin_top = 321.0
+margin_right = 305.0
+margin_bottom = 432.0
+custom_fonts/normal_font = ExtResource( 1 )
+text = "FUEL 00.0"
 
 [node name="Friction" type="HBoxContainer" parent="UI"]
 margin_left = -418.0

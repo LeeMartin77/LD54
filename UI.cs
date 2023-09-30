@@ -10,8 +10,10 @@ public class UI : Control
   private RichTextLabel _spd;
   private RichTextLabel _frc;
   private RichTextLabel _alert;
+    private RichTextLabel _flight;
+    private RichTextLabel _fuel;
 
-  private (TouchScreenButton, RichTextLabel) _thrust;
+    private (TouchScreenButton, RichTextLabel) _thrust;
   private (TouchScreenButton, RichTextLabel) _left;
   private (TouchScreenButton, RichTextLabel) _right;
   private (TouchScreenButton, RichTextLabel) _reset;
@@ -25,6 +27,8 @@ public class UI : Control
   public Color OffColor = new Color(10, 10, 10);
   public Color LitButton = new Color(255, 255, 0);
 
+    float flightTime = 0.0f;
+
   public override void _Ready()
   {
     _prx = GetNode<RichTextLabel>("PRX");
@@ -36,9 +40,11 @@ public class UI : Control
 
     _alert = GetNode<RichTextLabel>("ALERT");
 
+    _flight = GetNode<RichTextLabel>("FLIGHT");
+    _fuel = GetNode<RichTextLabel>("FUEL");
 
 
-    List<TextureRect> frictionLights = new List<TextureRect>();
+        List<TextureRect> frictionLights = new List<TextureRect>();
     List<TextureRect> proximityLights = new List<TextureRect>();
 
     _thrust = (GetNode<TouchScreenButton>("Thrust"), GetNode<RichTextLabel>("Thrust/lbl"));
@@ -57,8 +63,14 @@ public class UI : Control
   }
 
   public override void _Process(float delta)
-  {
-    UpdateButtons();
+   {
+
+    if (_latestUpdate.PlayerAlive && !_latestUpdate.PlayerVictorious)
+    {
+        flightTime += delta;
+        _flight.Text = $"FLT {flightTime:000.0}";
+    }
+      UpdateButtons();
   }
 
   private void UpdateButtons()
@@ -128,7 +140,15 @@ public class UI : Control
     }
 
     var (maxTime, currentTime) = update.TimeTilDestruction;
-    if (currentTime == 0)
+    if (!update.PlayerAlive)
+    {
+        _stat.Text = "NULL";
+        _stat.Modulate = OffColor;
+    } else if (update.RemainingFuel < 5f)
+    {
+        _stat.Text = "FUEL";
+        _stat.Modulate = new Color(255, 255, 0);
+    } else if (currentTime == 0)
     {
       _stat.Text = "SAFE";
       _stat.Modulate = new Color(255, 255, 255);
@@ -137,12 +157,8 @@ public class UI : Control
     {
       _stat.Text = "WARN";
       _stat.Modulate = new Color(255, 255, 0);
-    }
-    if (!update.PlayerAlive)
-    {
-      _stat.Text = "NULL";
-      _stat.Modulate = OffColor;
-    }
+    } 
+    _fuel.Text = $"FUEL {update.RemainingFuel:00.0}";
     UpdateFrictionLights(update);
     UpdateProximityLights(update);
     _spd.Text = $"{update.Speed:0000} SPD";

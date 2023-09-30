@@ -42,6 +42,8 @@ public class Player : RigidBody2D
 
   private float _timeInDangerZone = 0.0f;
 
+    private float _remainingFuel = 99.9f;
+
   // Called when the node enters the scene tree for the first time.
   public override void _Ready()
   {
@@ -142,9 +144,10 @@ public class Player : RigidBody2D
       _timeInDangerZone = 0;
     }
 
-    if (Input.IsActionPressed("up"))
+    if (Input.IsActionPressed("up") && _remainingFuel > 0)
     {
-      // We only ever go "up"
+            // We only ever go "up"
+            _remainingFuel = Math.Max(0, _remainingFuel - delta);
       Vector2 angledThrust = (new Vector2(0, -1) * (delta * Thrust)).Rotated(Rotation);
       LinearVelocity += angledThrust;
     }
@@ -175,10 +178,11 @@ public class Player : RigidBody2D
       Proximity = Position.DistanceTo(_closestFilamentPoint.Position),
       Friction = Friction,
       MaxFriction = DefaultFriction,
+      RemainingFuel = _remainingFuel,
       TimeTilDestruction = (FilamentMaxDangerPeriodSeconds, _timeInDangerZone)
     });
 
-    if (Alive && Input.IsActionPressed("up"))
+    if (Alive && Input.IsActionPressed("up") && _remainingFuel > 0)
     {
       _exhaust.Show();
     } 
