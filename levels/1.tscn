@@ -1,0 +1,48 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://EndZone.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ClosestPoint.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Main.cs" type="Script" id=4]
+[ext_resource path="res://Camera2D.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Camera.cs" type="Script" id=6]
+[ext_resource path="res://images/Filament.png" type="Texture" id=7]
+
+[sub_resource type="Shader" id=2]
+code = "shader_type canvas_item;
+void fragment() {
+	vec2 moving_uv = vec2(UV.x-(TIME / 5.0f), UV.y);
+	vec4 in_tex = texture(TEXTURE, moving_uv);
+	COLOR = in_tex;
+}"
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0.0045045, 0.463636 ), 0.0, 0.0, 0, 0, Vector2( 0.108108, 0.6 ), 1.00909, 1.00909, 0, 0, Vector2( 0.301802, 0.290909 ), 0.0, 0.0, 0, 0, Vector2( 0.540541, 0.645455 ), 0.0, 0.0, 0, 0, Vector2( 0.734234, 0.418182 ), 0.0, 0.0, 0, 0, Vector2( 0.95045, 0.627273 ), -1.34545, -1.34545, 0, 0, Vector2( 1, 0.527273 ), 0.0, 0.0, 0, 0 ]
+
+[node name="World" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+FilamentMaxDangerPeriodSeconds = 3.0
+
+[node name="Camera" parent="." instance=ExtResource( 5 )]
+script = ExtResource( 6 )
+
+[node name="StartPoint" type="Node2D" parent="."]
+
+[node name="EndZone" parent="." instance=ExtResource( 1 )]
+position = Vector2( -2241, -3873 )
+
+[node name="ClosestPoint" parent="." instance=ExtResource( 3 )]
+
+[node name="Filament" type="Line2D" parent="."]
+material = SubResource( 3 )
+points = PoolVector2Array( -172, -360, -156, -732, 421, -1008, 497, -1466, 370, -1847, -202, -2178, -778, -2263, -1418, -2220, -1622, -2348, -1343, -2842, -730, -3070, -39, -3220, 25, -3655, -60, -3890, -224, -4082, -744, -4325, -1058, -4453, -1414, -4560, -1999, -4710, -2740, -4767, -3403, -4688, -3510, -4467, -3488, -4047, -3239, -3819, -2918, -3698, -2583, -3690, -2390, -3787 )
+width = 75.0
+width_curve = SubResource( 1 )
+default_color = Color( 0.588235, 0.627451, 0.839216, 1 )
+texture = ExtResource( 7 )
+texture_mode = 1
