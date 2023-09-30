@@ -14,8 +14,14 @@ public class Player : RigidBody2D
   [Export]
   public float RotationSpeed = 2f;
 
+	[Export]
+	public float DefaultFriction = 0.5f;
+
 	private RichTextLabel _speedLabel;
   private RichTextLabel _rotationLabel;
+
+  private RichTextLabel _frictionLabel;
+  private RichTextLabel _maxSpeedLabel;
 
   // Called when the node enters the scene tree for the first time.
   public override void _Ready()
@@ -25,6 +31,10 @@ public class Player : RigidBody2D
 
 		_speedLabel = GetNode<RichTextLabel>("UI/CurrentSpeed");
 		_rotationLabel = GetNode<RichTextLabel>("UI/CurrentRotation");
+		_maxSpeedLabel = GetNode<RichTextLabel>("UI/CurrentLimit");
+		_frictionLabel = GetNode<RichTextLabel>("UI/CurrentFriction");
+
+		Friction = DefaultFriction;
   }
 
 
@@ -38,6 +48,7 @@ public class Player : RigidBody2D
 			Vector2 angledThrust = (new Vector2(0, -1) * (delta * Thrust)).Rotated(Rotation);
 			LinearVelocity += angledThrust;
 			// clamp to "limit"
+			// this doesn't work. lol.
 			if (Math.Abs(LinearVelocity.x) + Math.Abs(LinearVelocity.y) > SpeedLimit)
 			{
 		LinearVelocity = new Vector2(0, -SpeedLimit).Rotated(Rotation);
@@ -58,6 +69,10 @@ public class Player : RigidBody2D
   {
 		base._Process(delta);
 		_speedLabel.Text = $"{Math.Abs(LinearVelocity.x) + Math.Abs(LinearVelocity.y)} Speed";
-	_rotationLabel.Text = $"{RotationDegrees} Rotation";
+		_rotationLabel.Text = $"{RotationDegrees} Rotation";
+
+
+	_frictionLabel.Text = $"{Friction} Friction";
+	_maxSpeedLabel.Text = $"{SpeedLimit} Limit";
   }
 }
