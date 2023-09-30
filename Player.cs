@@ -6,9 +6,19 @@ public class Player : RigidBody2D
   private Camera2D _camera;
 
 	[Export]
-	public float SpeedLimit = 250f;
+	public float SpeedLimit = 500f;
   [Export]
-  public float Thrust = 20f;
+  public float MaxExcessSpeedLimitSeconds = 5.0f;
+
+  [Export]
+  public float Thrust = 50f;
+
+  [Export]
+  public float FilamentRideStart = 250f;
+  [Export]
+  public float FilamentDangerStart = 50f;
+  [Export]
+  public float FilamentMaxDangerPeriodSeconds = 5.0f;
 
 
   [Export]
@@ -21,7 +31,6 @@ public class Player : RigidBody2D
   private RichTextLabel _rotationLabel;
 
   private RichTextLabel _frictionLabel;
-  private RichTextLabel _maxSpeedLabel;
   private RichTextLabel _proximityLabel;
 
   private Sprite _closestPointMarker;
@@ -38,14 +47,13 @@ public class Player : RigidBody2D
 
 		_speedLabel = GetNode<RichTextLabel>("UI/CurrentSpeed");
 		_rotationLabel = GetNode<RichTextLabel>("UI/CurrentRotation");
-		_maxSpeedLabel = GetNode<RichTextLabel>("UI/CurrentLimit");
 		_frictionLabel = GetNode<RichTextLabel>("UI/CurrentFriction");
-	_proximityLabel = GetNode<RichTextLabel>("UI/CurrentProximity");
+		_proximityLabel = GetNode<RichTextLabel>("UI/CurrentProximity");
 
-	_filament = GetNode<Line2D>("/root/World/Filament");
-	_closestPointMarker = GetNode<Sprite>("/root/World/ClosestPoint");
+		_filament = GetNode<Line2D>("/root/World/Filament");
+		_closestPointMarker = GetNode<Sprite>("/root/World/ClosestPoint");
 
-	Friction = DefaultFriction;
+		Friction = DefaultFriction;
   }
 
 
@@ -64,21 +72,38 @@ public class Player : RigidBody2D
 	  if (Position.DistanceTo(loopPoint) < Position.DistanceTo(closestPoint))
 			{
 				closestPoint = loopPoint;
+
 			}
 		}
 		_closestFilamentPoint = closestPoint;
+
+
+	  var distance = Position.DistanceTo(_closestFilamentPoint);
+
+	  if (distance < FilamentDangerStart)
+	  {
+			//// Friction 0 in danger zone 
+			Friction = 0;
+	  }
+	  else if (distance < FilamentRideStart)
+	  {
+			//otherwise falloff into danger zone
+			var distanceToDanger = distance - FilamentDangerStart;
+			// straight percentage for now but kinda want a curve
+			var fraction = distanceToDanger / (FilamentRideStart - FilamentDangerStart);
+			Friction = DefaultFriction * fraction;
+	  }
+	  else
+	  {
+			// Friction is default
+			Friction = DefaultFriction;
+	  }
 
 		if (Input.IsActionPressed("up"))
 		{
 			// We only ever go "up"
 			Vector2 angledThrust = (new Vector2(0, -1) * (delta * Thrust)).Rotated(Rotation);
 			LinearVelocity += angledThrust;
-			// clamp to "limit"
-			// this doesn't work. lol.
-			if (Math.Abs(LinearVelocity.x) + Math.Abs(LinearVelocity.y) > SpeedLimit)
-			{
-		LinearVelocity = new Vector2(0, -SpeedLimit).Rotated(Rotation);
-	  }
 		}
 		if (Input.IsActionPressed("left"))
 		{
@@ -104,6 +129,5 @@ public class Player : RigidBody2D
 
 
 	_frictionLabel.Text = $"{Friction} Friction";
-	_maxSpeedLabel.Text = $"{SpeedLimit} Limit";
   }
 }

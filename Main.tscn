@@ -8,6 +8,7 @@
 [node name="World" type="Node2D"]
 
 [node name="Player" type="RigidBody2D" parent="."]
+mass = 0.5
 gravity_scale = 0.0
 script = ExtResource( 1 )
 
@@ -43,14 +44,6 @@ margin_right = 651.0
 margin_bottom = 190.0
 custom_fonts/normal_font = ExtResource( 4 )
 text = "0 Rotation"
-
-[node name="CurrentLimit" type="RichTextLabel" parent="Player/UI"]
-margin_left = 240.0
-margin_top = 102.0
-margin_right = 1371.0
-margin_bottom = 169.0
-custom_fonts/normal_font = ExtResource( 4 )
-text = "0 Limit"
 
 [node name="CurrentFriction" type="RichTextLabel" parent="Player/UI"]
 margin_left = 240.0
@@ -91,4 +84,4 @@ scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 3 )
 
 [node name="Filament" type="Line2D" parent="."]
-points = PoolVector2Array( 463, -956, 675, -160, 503, 904 )
+points = PoolVector2Array( -2250, -3899, -2225, -3302, -1377.33, -3572.35, -904, -3696, -980, -2845, -282, -2515, 646, -2815, 853, -1995, -66, -1425, 489, -520, 26, -214 )
