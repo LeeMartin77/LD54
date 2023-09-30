@@ -22,6 +22,10 @@ public class Player : RigidBody2D
 
 
   [Export]
+  public float RequiredEndzoneTime = 2.0f;
+
+
+  [Export]
   public float RotationSpeed = 2f;
 
 	[Export]
@@ -39,6 +43,9 @@ public class Player : RigidBody2D
 
 	private Vector2 _closestFilamentPoint;
 
+	private bool _inEndZone = false;
+	private float _endzoneTime = 0.0f;
+
   // Called when the node enters the scene tree for the first time.
   public override void _Ready()
 	{
@@ -54,6 +61,12 @@ public class Player : RigidBody2D
 		_closestPointMarker = GetNode<Sprite>("/root/World/ClosestPoint");
 
 		Friction = DefaultFriction;
+  }
+
+	public void SetEndZone(bool inZone)
+	{
+		_inEndZone = inZone;
+		_endzoneTime = 0.0f;
   }
 
 
@@ -118,11 +131,20 @@ public class Player : RigidBody2D
 
   public override void _Process(float delta)
   {
-		if (_closestFilamentPoint != null)
+    if (_closestFilamentPoint != null)
 		{
 			_closestPointMarker.Position = _closestFilamentPoint;
 	  _proximityLabel.Text = $"{Position.DistanceTo(_closestFilamentPoint)} Proximity";
 	}
+		if (_inEndZone)
+		{
+			_endzoneTime += delta;
+		}
+
+		if (_endzoneTime > RequiredEndzoneTime)
+		{
+			GD.Print("You win!");
+		}
 		base._Process(delta);
 		_speedLabel.Text = $"{Math.Abs(LinearVelocity.x) + Math.Abs(LinearVelocity.y)} Speed";
 		_rotationLabel.Text = $"{RotationDegrees} Rotation";
@@ -130,4 +152,14 @@ public class Player : RigidBody2D
 
 	_frictionLabel.Text = $"{Friction} Friction";
   }
+
+	public void Reset(Vector2 startPoint)
+	{
+		_inEndZone = false;
+		_endzoneTime = 0.0f;
+		Position = startPoint;
+		LinearVelocity = new Vector2();
+		AngularVelocity = 0.0f;
+		Rotation = 0;
+	}
 }
