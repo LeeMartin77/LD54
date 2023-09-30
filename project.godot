@@ -10,8 +10,9 @@ config_version=4
 
 [application]
 
-config/name="LD54"
-run/main_scene="res://levels/1.tscn"
+config/name="Loss of Signal"
+config/description="Skate the ragged edge of space for glory"
+run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
 [display]
