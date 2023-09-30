@@ -4,6 +4,10 @@ on:
   push:
     branches: [ "main" ]
 
+concurrency:
+  group: push-main
+  cancel-in-progress: true
+
 env:
   EXPORT_NAME: LD54
     
