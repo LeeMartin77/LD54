@@ -24,7 +24,7 @@ public class UI : Control
 
   private UIUpdate _latestUpdate = new UIUpdate { };
 
-  public Color OffColor = new Color(10, 10, 10);
+  public Color OffColor = new Color(10, 10, 10, 0.2f);
   public Color LitButton = new Color(255, 255, 0);
 
     float flightTime = 0.0f;

@@ -14,7 +14,7 @@
 [node name="Camera2D" type="Camera2D"]
 rotating = true
 current = true
-zoom = Vector2( 2, 2 )
+zoom = Vector2( 1.5, 1.5 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 scroll_ignore_camera_zoom = true
@@ -64,6 +64,7 @@ region_rect = Rect2( 0, 0, 2048, 2048 )
 [node name="UI" type="Control" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
+rect_scale = Vector2( 0.75, 0.75 )
 script = ExtResource( 5 )
 
 [node name="PRX" type="RichTextLabel" parent="UI"]

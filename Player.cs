@@ -37,6 +37,9 @@ public class Player : RigidBody2D
   private AnimatedSprite _left;
   private AnimatedSprite _right;
 
+  private CPUParticles2D _explosion;
+  private Sprite _ship;
+
   private bool _inEndZone = false;
   private float _endzoneTime = 0.0f;
 
@@ -50,8 +53,10 @@ public class Player : RigidBody2D
 
     _camera = GetNode<Camera>("/root/World/Camera");
     _closestFilamentPoint = GetNode<Node2D>("/root/World/ClosestPoint");
+    _explosion = GetNode<CPUParticles2D>("Explosion");
 
     _exhaust = GetNode<AnimatedSprite>("Exhaust");
+    _ship = GetNode<Sprite>("Ship");
     _left = GetNode<AnimatedSprite>("Left");
     _right = GetNode<AnimatedSprite>("Right");
 
@@ -181,6 +186,12 @@ public class Player : RigidBody2D
       RemainingFuel = _remainingFuel,
       TimeTilDestruction = (FilamentMaxDangerPeriodSeconds, _timeInDangerZone)
     });
+
+    if (!Alive && _ship.Visible)
+    {
+      _ship.Visible = false;
+      _explosion.Emitting = true;
+    }
 
     if (Alive && Input.IsActionPressed("up") && _remainingFuel > 0)
     {
