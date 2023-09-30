@@ -27,10 +27,16 @@ public class UI : Control
   public Color OffColor = new Color(10, 10, 10, 0.2f);
   public Color LitButton = new Color(255, 255, 0);
 
+  private Control _endscreen;
+
   float flightTime = 0.0f;
+
+  Camera _root;
 
   public override void _Ready()
   {
+    _root = GetNode<Camera>("/root/World/Camera");
+
     _prx = GetNode<RichTextLabel>("PRX");
     _stat = GetNode<RichTextLabel>("STAT");
 
@@ -51,6 +57,7 @@ public class UI : Control
     _left = GetNode<Button>("Left");
     _right = GetNode<Button>("Right");
     _reset = GetNode<Button>("RESET");
+    _endscreen = GetNode<Control>("EndScreen");
 
     foreach (var lbl in new string[] { "1", "2", "3", "4", "5" })
     {
@@ -70,7 +77,18 @@ public class UI : Control
       flightTime += delta;
       _flight.Text = $"FLT {flightTime:000.0}";
     }
+
     UpdateButtons();
+  }
+
+  public void OnPressUiReset()
+  {
+    GetTree().ReloadCurrentScene();
+  }
+
+  public void OnPressUiLevels()
+  {
+    GetTree().ChangeScene("res://LevelSelect.tscn");
   }
 
   public void OnPressReset()
@@ -154,21 +172,33 @@ public class UI : Control
   public void UpdateData(UIUpdate update)
   {
     _latestUpdate = update;
-    if (update.PlayerAlive && !update.PlayerVictorious)
+
+    if (!update.PlayerAlive || update.PlayerVictorious)
     {
-      _alert.Hide();
-    }
-    else
-    {
+      GetNode<RichTextLabel>("EndScreen/LevelName").Text = _root.LevelName;
+      switch (_root.Difficulty)
+      {
+        case Difficulty.Apprentice:
+          GetNode<RichTextLabel>("EndScreen/Difficulty").Text = "Apprentice";
+          break;
+        case Difficulty.Journeyman:
+          GetNode<RichTextLabel>("EndScreen/Difficulty").Text = "Journeyman";
+          break;
+        case Difficulty.Master:
+          GetNode<RichTextLabel>("EndScreen/Difficulty").Text = "Master";
+          break;
+        default:
+          throw new NotImplementedException("Unimplemented difficulty");
+      }
       if (update.PlayerVictorious)
       {
-        _alert.Text = "CLEAR";
+        GetNode<RichTextLabel>("EndScreen/Score").Text = $"{Math.Max(update.RemainingFuel * (500 - flightTime), 0):000000.00}";
       }
       else
       {
-        _alert.Text = "L.O.S";
+        GetNode<RichTextLabel>("EndScreen/Score").Text = "L.O.S";
       }
-      _alert.Show();
+      _endscreen.Visible = true;
     }
 
     var (maxTime, currentTime) = update.TimeTilDestruction;

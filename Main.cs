@@ -27,5 +27,11 @@ public class Main : Node2D
 	  {
 			GetTree().ReloadCurrentScene();
 	  }
-	}
+
+
+    if (Input.IsActionJustReleased("escape"))
+    {
+      GetTree().ChangeScene("res://LevelSelect.tscn");
+    }
+  }
 }

@@ -14,8 +14,21 @@ public struct UIUpdate
   public (float, float) TimeTilDestruction { get; set; } // Max time, current time
 }
 
+public enum Difficulty
+{
+  Apprentice,
+  Journeyman,
+  Master
+}
+
 public class Camera : Camera2D
 {
+
+  [Export]
+  public string LevelName = "LEVEL_NAME";
+  [Export]
+  public Difficulty Difficulty = Difficulty.Journeyman;
+
   private UI _ui;
   public override void _Ready()
 	{

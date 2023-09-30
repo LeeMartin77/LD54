@@ -30,6 +30,7 @@ FilamentMaxDangerPeriodSeconds = 3.0
 
 [node name="Camera" parent="." instance=ExtResource( 5 )]
 script = ExtResource( 6 )
+LevelName = "Sirius"
 
 [node name="StartPoint" type="Node2D" parent="."]
 
