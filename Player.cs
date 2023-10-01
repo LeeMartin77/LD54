@@ -41,6 +41,10 @@ public class Player : RigidBody2D
   private AnimatedSprite _right;
   private AnimatedSprite _crackle;
 
+
+  private AudioStreamPlayer _mainThrusterAudio;
+  private AudioStreamPlayer _sideThrusterAudio;
+
   private CPUParticles2D _explosion;
   private Sprite _ship;
 
@@ -66,6 +70,9 @@ public class Player : RigidBody2D
     _left = GetNode<AnimatedSprite>("Left");
     _right = GetNode<AnimatedSprite>("Right");
     _crackle = GetNode<AnimatedSprite>("Crackle");
+
+    _mainThrusterAudio = GetNode<AudioStreamPlayer>("MainThruster");
+    _sideThrusterAudio = GetNode<AudioStreamPlayer>("SideThruster");
 
     Friction = DefaultFriction;
   }
@@ -212,17 +219,23 @@ public class Player : RigidBody2D
     {
       if (Friction == 0)
       {
-
         _exhaust.Scale = new Vector2(1, 1) * FrictionlessThrustFactor;
+        _mainThrusterAudio.VolumeDb = -3 + 2 * FrictionlessThrustFactor;
       }
       else
       {
         _exhaust.Scale = new Vector2(1, 1);
+        _mainThrusterAudio.VolumeDb = -3;
+      }
+      if (!_mainThrusterAudio.Playing)
+      {
+        _mainThrusterAudio.Play();
       }
       _exhaust.Show();
     } 
     else
     {
+      _mainThrusterAudio.Playing = false;
       _exhaust.Hide();
     }
 
@@ -242,6 +255,19 @@ public class Player : RigidBody2D
     else
     {
       _left.Hide();
+    }
+
+    if (Alive && (Input.IsActionPressed("left") || Input.IsActionPressed("right")))
+    {
+      if (!_sideThrusterAudio.Playing)
+      {
+
+        _sideThrusterAudio.Play();
+      }
+    } 
+    else
+    {
+      _sideThrusterAudio.Playing = false;
     }
 
     base._Process(delta);
