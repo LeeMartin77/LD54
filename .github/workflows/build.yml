@@ -42,15 +42,25 @@ jobs:
         run: |
           mkdir -v -p ~/.local/share/godot/templates/3.5.3.stable.mono
           mkdir -v -p dist/web
+          mkdir -v -p dist/windows
+          cp .godot/godot-templates/templates/data.mono.windows.* ~/.local/share/godot/templates/3.5.3.stable.mono
+          cp .godot/godot-templates/templates/windows* ~/.local/share/godot/templates/3.5.3.stable.mono
           cp .godot/godot-templates/templates/webassembly_* ~/.local/share/godot/templates/3.5.3.stable.mono
           cp -r .godot/godot-templates/templates/bcl ~/.local/share/godot/templates/3.5.3.stable.mono
           .godot/godot/Godot_v3.5.3-stable_mono_linux_headless_64/Godot_v3.5.3-stable_mono_linux_headless.64 --export HTML5 ./dist/web/index.html
+          .godot/godot/Godot_v3.5.3-stable_mono_linux_headless_64/Godot_v3.5.3-stable_mono_linux_headless.64 --export Windows ./dist/windows/lossofsignal.exe
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
           name: web
           path: dist/web
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: windows
+          path: dist/windows
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
