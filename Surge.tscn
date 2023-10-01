@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://images/Filament.png" type="Texture" id=1]
+[ext_resource path="res://levels/Surge.cs" type="Script" id=2]
+
+[sub_resource type="Shader" id=2]
+code = "shader_type canvas_item;
+void fragment() {
+	vec2 moving_uv = vec2(UV.x-(TIME / 5.0f), UV.y);
+	vec4 in_tex = texture(TEXTURE, moving_uv);
+	COLOR = in_tex;
+}"
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0.0045045, 0.463636 ), 0.0, 0.0, 0, 0, Vector2( 0.108108, 0.6 ), 1.00909, 1.00909, 0, 0, Vector2( 0.301802, 0.290909 ), 0.0, 0.0, 0, 0, Vector2( 0.540541, 0.645455 ), 0.0, 0.0, 0, 0, Vector2( 0.734234, 0.418182 ), 0.0, 0.0, 0, 0, Vector2( 0.95045, 0.627273 ), -1.34545, -1.34545, 0, 0, Vector2( 1, 0.527273 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 15.0
+
+[node name="Surge" type="Area2D"]
+script = ExtResource( 2 )
+
+[node name="Filament" type="Line2D" parent="."]
+material = SubResource( 3 )
+position = Vector2( 22, 0 )
+scale = Vector2( 1.2, 1.2 )
+points = PoolVector2Array( -17, -29, -4, -26, 8, -15, 13, 0, 8, 17, -3, 27, -18, 30, -28, 29, -38, 22, -44, 12, -46, 0, -45, -11, -38, -21, -29, -26, -17, -29 )
+width = 45.0
+width_curve = SubResource( 1 )
+default_color = Color( 0.588235, 0.627451, 0.839216, 1 )
+texture = ExtResource( 1 )
+texture_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 4 )

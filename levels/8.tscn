@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://EndZone.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Camera2D.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Camera.cs" type="Script" id=6]
 [ext_resource path="res://images/Filament.png" type="Texture" id=7]
+[ext_resource path="res://Surge.tscn" type="PackedScene" id=8]
 
 [sub_resource type="Shader" id=2]
 code = "shader_type canvas_item;
@@ -50,3 +51,47 @@ width_curve = SubResource( 1 )
 default_color = Color( 0.588235, 0.627451, 0.839216, 1 )
 texture = ExtResource( 7 )
 texture_mode = 1
+
+[node name="Surge" parent="." instance=ExtResource( 8 )]
+position = Vector2( -57, -623 )
+
+[node name="Surge2" parent="." instance=ExtResource( 8 )]
+position = Vector2( 1034, -2768 )
+MovementSpeed = 175.0
+
+[node name="Surge3" parent="." instance=ExtResource( 8 )]
+position = Vector2( 1961, -4153 )
+MovementSpeed = 200.0
+
+[node name="Surge8" parent="." instance=ExtResource( 8 )]
+position = Vector2( 794, -7125 )
+
+[node name="Surge9" parent="." instance=ExtResource( 8 )]
+position = Vector2( 1018, -5240 )
+MovementSpeed = 140.0
+
+[node name="Surge4" parent="." instance=ExtResource( 8 )]
+position = Vector2( 429, -1959 )
+MovementSpeed = 225.0
+
+[node name="Surge5" parent="." instance=ExtResource( 8 )]
+position = Vector2( 535, 102 )
+MovementSpeed = 100.0
+
+[node name="Surge6" parent="." instance=ExtResource( 8 )]
+position = Vector2( -165, 2778 )
+MovementSpeed = 120.0
+
+[node name="Surge7" parent="." instance=ExtResource( 8 )]
+position = Vector2( 786, 1476 )
+MovementSpeed = 170.0
+
+[connection signal="body_entered" from="Surge" to="Surge" method="OnSurgeBodyEntered"]
+[connection signal="body_entered" from="Surge2" to="Surge2" method="OnSurgeBodyEntered"]
+[connection signal="body_entered" from="Surge3" to="Surge3" method="OnSurgeBodyEntered"]
+[connection signal="body_entered" from="Surge8" to="Surge8" method="OnSurgeBodyEntered"]
+[connection signal="body_entered" from="Surge9" to="Surge9" method="OnSurgeBodyEntered"]
+[connection signal="body_entered" from="Surge4" to="Surge4" method="OnSurgeBodyEntered"]
+[connection signal="body_entered" from="Surge5" to="Surge5" method="OnSurgeBodyEntered"]
+[connection signal="body_entered" from="Surge6" to="Surge6" method="OnSurgeBodyEntered"]
+[connection signal="body_entered" from="Surge7" to="Surge7" method="OnSurgeBodyEntered"]

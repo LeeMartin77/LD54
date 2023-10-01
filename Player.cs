@@ -46,7 +46,7 @@ public class Player : RigidBody2D
   private bool _inEndZone = false;
   private float _endzoneTime = 0.0f;
 
-  private float _timeInDangerZone = 0.0f;
+  public float TimeInDangerZone = 0.0f;
 
     private float _remainingFuel = 99.9f;
 
@@ -90,7 +90,7 @@ public class Player : RigidBody2D
   {
     get
     {
-      return _timeInDangerZone < FilamentMaxDangerPeriodSeconds;
+      return TimeInDangerZone < FilamentMaxDangerPeriodSeconds;
     }
   }
 
@@ -134,7 +134,7 @@ public class Player : RigidBody2D
     {
       //// Friction 0 in danger zone 
       Friction = 0;
-      _timeInDangerZone += delta;
+      TimeInDangerZone += delta;
     }
     else if (distance < FilamentRideStart)
     {
@@ -143,13 +143,13 @@ public class Player : RigidBody2D
       // straight percentage for now but kinda want a curve
       var fraction = distanceToDanger / (FilamentRideStart - FilamentDangerStart);
       Friction = DefaultFriction * fraction;
-      _timeInDangerZone = 0;
+      TimeInDangerZone = 0;
     }
     else
     {
       // Friction is default
       Friction = DefaultFriction;
-      _timeInDangerZone = 0;
+      TimeInDangerZone = 0;
     }
 
     if (Input.IsActionPressed("up") && _remainingFuel > 0)
@@ -188,7 +188,7 @@ public class Player : RigidBody2D
       Friction = Friction,
       MaxFriction = DefaultFriction,
       RemainingFuel = _remainingFuel,
-      TimeTilDestruction = (FilamentMaxDangerPeriodSeconds, _timeInDangerZone)
+      TimeTilDestruction = (FilamentMaxDangerPeriodSeconds, TimeInDangerZone)
     });
 
     if (!Alive && _ship.Visible)
