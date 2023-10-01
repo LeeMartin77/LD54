@@ -13,6 +13,7 @@ bg_color = Color( 1, 1, 1, 0.807843 )
 
 [resource]
 default_font = ExtResource( 1 )
+Button/colors/font_color = Color( 1, 1, 1, 1 )
 Button/styles/hover = SubResource( 1 )
 Button/styles/normal = SubResource( 2 )
 Button/styles/pressed = SubResource( 3 )

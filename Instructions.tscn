@@ -57,7 +57,120 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
 region_rect = Rect2( 0, 0, 2048, 2048 )
 
-[node name="Title" type="RichTextLabel" parent="."]
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Control" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_scale = Vector2( 0.88, 0.88 )
+script = ExtResource( 5 )
+
+[node name="UI" type="Control" parent="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_scale = Vector2( 0.75, 0.75 )
+
+[node name="FRC" type="RichTextLabel" parent="Control/UI"]
+modulate = Color( 0, 1, 0, 1 )
+margin_left = 54.6667
+margin_top = 780.333
+margin_right = 167.667
+margin_bottom = 853.333
+custom_fonts/normal_font = ExtResource( 4 )
+text = "FRC"
+
+[node name="Friction" type="HBoxContainer" parent="Control/UI"]
+margin_left = 165.667
+margin_top = 753.333
+margin_right = 433.667
+margin_bottom = 803.333
+rect_scale = Vector2( 2, 2 )
+
+[node name="1" type="TextureRect" parent="Control/UI/Friction"]
+modulate = Color( 0, 1, 0, 1 )
+margin_right = 50.0
+margin_bottom = 50.0
+texture = ExtResource( 6 )
+
+[node name="2" type="TextureRect" parent="Control/UI/Friction"]
+modulate = Color( 0, 1, 0, 1 )
+margin_left = 54.0
+margin_right = 104.0
+margin_bottom = 50.0
+texture = ExtResource( 6 )
+
+[node name="3" type="TextureRect" parent="Control/UI/Friction"]
+modulate = Color( 0, 1, 0, 1 )
+margin_left = 108.0
+margin_right = 158.0
+margin_bottom = 50.0
+texture = ExtResource( 6 )
+
+[node name="4" type="TextureRect" parent="Control/UI/Friction"]
+modulate = Color( 0, 1, 0, 1 )
+margin_left = 162.0
+margin_right = 212.0
+margin_bottom = 50.0
+texture = ExtResource( 6 )
+
+[node name="5" type="TextureRect" parent="Control/UI/Friction"]
+modulate = Color( 1, 0, 0, 1 )
+margin_left = 216.0
+margin_right = 266.0
+margin_bottom = 50.0
+texture = ExtResource( 6 )
+
+[node name="PRX" type="RichTextLabel" parent="Control/UI"]
+modulate = Color( 1, 0.984314, 0, 1 )
+margin_left = 54.6667
+margin_top = 974.333
+margin_right = 157.667
+margin_bottom = 1035.33
+custom_fonts/normal_font = ExtResource( 4 )
+text = "PRX"
+
+[node name="Proximity" type="HBoxContainer" parent="Control/UI"]
+margin_left = 165.667
+margin_top = 973.333
+margin_right = 433.667
+margin_bottom = 998.333
+rect_scale = Vector2( 2, 2 )
+
+[node name="1" type="TextureRect" parent="Control/UI/Proximity"]
+modulate = Color( 1, 1, 0, 1 )
+margin_right = 50.0
+margin_bottom = 25.0
+texture = ExtResource( 8 )
+
+[node name="2" type="TextureRect" parent="Control/UI/Proximity"]
+modulate = Color( 1, 1, 0, 1 )
+margin_left = 54.0
+margin_right = 104.0
+margin_bottom = 25.0
+texture = ExtResource( 8 )
+
+[node name="3" type="TextureRect" parent="Control/UI/Proximity"]
+modulate = Color( 1, 1, 0, 1 )
+margin_left = 108.0
+margin_right = 158.0
+margin_bottom = 25.0
+texture = ExtResource( 8 )
+
+[node name="4" type="TextureRect" parent="Control/UI/Proximity"]
+modulate = Color( 1, 1, 0, 1 )
+margin_left = 162.0
+margin_right = 212.0
+margin_bottom = 25.0
+texture = ExtResource( 8 )
+
+[node name="5" type="TextureRect" parent="Control/UI/Proximity"]
+modulate = Color( 1, 1, 0, 1 )
+margin_left = 216.0
+margin_right = 266.0
+margin_bottom = 25.0
+texture = ExtResource( 8 )
+
+[node name="Title" type="RichTextLabel" parent="Control"]
 margin_left = 26.0
 margin_top = 27.0
 margin_right = 402.0
@@ -66,11 +179,11 @@ rect_pivot_offset = Vector2( 270, 107 )
 custom_fonts/normal_font = ExtResource( 4 )
 text = "INSTRUCTIONS"
 
-[node name="QuickInstruction" type="RichTextLabel" parent="."]
-margin_left = -82.0
-margin_top = 57.0
-margin_right = 806.0
-margin_bottom = 712.0
+[node name="QuickInstruction" type="RichTextLabel" parent="Control"]
+margin_left = -85.2273
+margin_top = 65.9091
+margin_right = 802.773
+margin_bottom = 720.909
 rect_scale = Vector2( 0.6, 0.6 )
 rect_pivot_offset = Vector2( 270, 107 )
 custom_fonts/normal_font = ExtResource( 4 )
@@ -86,32 +199,25 @@ text = "- Get to the docks without
 - Prolonged filament contact
   will destroy your ship"
 
-[node name="FRC" type="RichTextLabel" parent="."]
-margin_left = -82.0
-margin_top = 478.0
-margin_right = 806.0
-margin_bottom = 542.0
+[node name="FRC" type="RichTextLabel" parent="Control"]
+margin_left = -65.0
+margin_top = 477.273
+margin_right = 820.955
+margin_bottom = 541.273
 rect_scale = Vector2( 0.6, 0.6 )
 rect_pivot_offset = Vector2( 270, 107 )
 custom_fonts/normal_font = ExtResource( 4 )
 text = "fRICTION iNDICATOR:"
 
-[node name="FRC2" type="RichTextLabel" parent="."]
-margin_left = -82.0
-margin_top = 640.0
-margin_right = 806.0
-margin_bottom = 704.0
+[node name="FRC2" type="RichTextLabel" parent="Control"]
+margin_left = -65.0
+margin_top = 631.818
+margin_right = 820.955
+margin_bottom = 695.818
 rect_scale = Vector2( 0.6, 0.6 )
 rect_pivot_offset = Vector2( 270, 107 )
 custom_fonts/normal_font = ExtResource( 4 )
 text = "Filament Proximity Timer:"
-
-[node name="Camera2D" type="Camera2D" parent="."]
-
-[node name="Control" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
-script = ExtResource( 5 )
 
 [node name="Levels" type="Button" parent="Control"]
 margin_left = 348.0
@@ -130,108 +236,3 @@ margin_bottom = 1004.0
 theme = ExtResource( 9 )
 custom_fonts/font = ExtResource( 4 )
 text = "MAIN"
-
-[node name="UI" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_scale = Vector2( 0.75, 0.75 )
-
-[node name="FRC" type="RichTextLabel" parent="UI"]
-modulate = Color( 0, 1, 0, 1 )
-margin_left = 54.6667
-margin_top = 780.333
-margin_right = 167.667
-margin_bottom = 853.333
-custom_fonts/normal_font = ExtResource( 4 )
-text = "FRC"
-
-[node name="Friction" type="HBoxContainer" parent="UI"]
-margin_left = 165.667
-margin_top = 753.333
-margin_right = 433.667
-margin_bottom = 803.333
-rect_scale = Vector2( 2, 2 )
-
-[node name="1" type="TextureRect" parent="UI/Friction"]
-modulate = Color( 0, 1, 0, 1 )
-margin_right = 50.0
-margin_bottom = 50.0
-texture = ExtResource( 6 )
-
-[node name="2" type="TextureRect" parent="UI/Friction"]
-modulate = Color( 0, 1, 0, 1 )
-margin_left = 54.0
-margin_right = 104.0
-margin_bottom = 50.0
-texture = ExtResource( 6 )
-
-[node name="3" type="TextureRect" parent="UI/Friction"]
-modulate = Color( 0, 1, 0, 1 )
-margin_left = 108.0
-margin_right = 158.0
-margin_bottom = 50.0
-texture = ExtResource( 6 )
-
-[node name="4" type="TextureRect" parent="UI/Friction"]
-modulate = Color( 0, 1, 0, 1 )
-margin_left = 162.0
-margin_right = 212.0
-margin_bottom = 50.0
-texture = ExtResource( 6 )
-
-[node name="5" type="TextureRect" parent="UI/Friction"]
-modulate = Color( 1, 0, 0, 1 )
-margin_left = 216.0
-margin_right = 266.0
-margin_bottom = 50.0
-texture = ExtResource( 6 )
-
-[node name="PRX" type="RichTextLabel" parent="UI"]
-modulate = Color( 1, 0.984314, 0, 1 )
-margin_left = 54.6667
-margin_top = 974.333
-margin_right = 157.667
-margin_bottom = 1035.33
-custom_fonts/normal_font = ExtResource( 4 )
-text = "PRX"
-
-[node name="Proximity" type="HBoxContainer" parent="UI"]
-margin_left = 165.667
-margin_top = 973.333
-margin_right = 433.667
-margin_bottom = 998.333
-rect_scale = Vector2( 2, 2 )
-
-[node name="1" type="TextureRect" parent="UI/Proximity"]
-modulate = Color( 1, 1, 0, 1 )
-margin_right = 50.0
-margin_bottom = 25.0
-texture = ExtResource( 8 )
-
-[node name="2" type="TextureRect" parent="UI/Proximity"]
-modulate = Color( 1, 1, 0, 1 )
-margin_left = 54.0
-margin_right = 104.0
-margin_bottom = 25.0
-texture = ExtResource( 8 )
-
-[node name="3" type="TextureRect" parent="UI/Proximity"]
-modulate = Color( 1, 1, 0, 1 )
-margin_left = 108.0
-margin_right = 158.0
-margin_bottom = 25.0
-texture = ExtResource( 8 )
-
-[node name="4" type="TextureRect" parent="UI/Proximity"]
-modulate = Color( 1, 1, 0, 1 )
-margin_left = 162.0
-margin_right = 212.0
-margin_bottom = 25.0
-texture = ExtResource( 8 )
-
-[node name="5" type="TextureRect" parent="UI/Proximity"]
-modulate = Color( 1, 1, 0, 1 )
-margin_left = 216.0
-margin_right = 266.0
-margin_bottom = 25.0
-texture = ExtResource( 8 )

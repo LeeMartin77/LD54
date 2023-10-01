@@ -56,7 +56,15 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
 region_rect = Rect2( 0, 0, 2048, 2048 )
 
-[node name="Title" type="RichTextLabel" parent="."]
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Control" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_scale = Vector2( 0.88, 0.88 )
+script = ExtResource( 6 )
+
+[node name="Title" type="RichTextLabel" parent="Control"]
 margin_left = 26.0
 margin_top = 165.0
 margin_right = 402.0
@@ -66,7 +74,7 @@ text = "LOSS
 OF
 SIGNAL"
 
-[node name="Title2" type="RichTextLabel" parent="."]
+[node name="Title2" type="RichTextLabel" parent="Control"]
 margin_left = 26.0
 margin_top = 744.0
 margin_right = 682.0
@@ -78,13 +86,6 @@ a/left  - turn left
 d/right - turn right
 r       - reset
 "
-
-[node name="Camera2D" type="Camera2D" parent="."]
-
-[node name="Control" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
-script = ExtResource( 6 )
 
 [node name="Instruction" type="Button" parent="Control"]
 margin_left = 202.0

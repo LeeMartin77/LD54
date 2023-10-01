@@ -17,6 +17,7 @@ bg_color = Color( 0, 0, 0, 0.364706 )
 bg_color = Color( 0, 0, 0, 0.87451 )
 
 [resource]
+Button/colors/font_color = Color( 1, 1, 1, 1 )
 Button/fonts/font = SubResource( 1 )
 Button/styles/hover = SubResource( 2 )
 Button/styles/normal = SubResource( 3 )
