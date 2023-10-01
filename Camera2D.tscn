@@ -315,6 +315,11 @@ text = "Reset"
 [node name="WarningTone" type="AudioStreamPlayer" parent="UI"]
 stream = ExtResource( 13 )
 
+[node name="DeadTone" type="AudioStreamPlayer" parent="UI"]
+stream = ExtResource( 13 )
+volume_db = -30.439
+pitch_scale = 2.01
+
 [connection signal="button_down" from="UI/Thrust" to="UI" method="OnPressUp"]
 [connection signal="button_up" from="UI/Thrust" to="UI" method="OnReleaseUp"]
 [connection signal="button_down" from="UI/RESET" to="UI" method="OnReleaseReset"]

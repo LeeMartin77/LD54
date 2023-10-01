@@ -34,6 +34,7 @@ public class UI : Control
   Camera _root;
 
   AudioStreamPlayer _warningTone;
+  AudioStreamPlayer _deadTone;
 
   public override void _Ready()
   {
@@ -52,6 +53,7 @@ public class UI : Control
     _fuel = GetNode<RichTextLabel>("FUEL");
 
     _warningTone = GetNode<AudioStreamPlayer>("WarningTone");
+    _deadTone = GetNode<AudioStreamPlayer>("DeadTone");
 
 
     List<TextureRect> frictionLights = new List<TextureRect>();
@@ -180,7 +182,14 @@ public class UI : Control
   public void UpdateData(UIUpdate update)
   {
     _latestUpdate = update;
-
+    if (!update.PlayerAlive && !_deadTone.Playing)
+    {
+      _deadTone.Play();
+    }
+    else
+    {
+      _deadTone.Stop();
+    }
     if (!update.PlayerAlive || update.PlayerVictorious)
     {
       GetNode<RichTextLabel>("EndScreen/LevelName").Text = _root.LevelName;
