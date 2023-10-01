@@ -33,6 +33,8 @@ public class UI : Control
 
   Camera _root;
 
+  AudioStreamPlayer _warningTone;
+
   public override void _Ready()
   {
     _root = GetNode<Camera>("/root/World/Camera");
@@ -48,6 +50,8 @@ public class UI : Control
 
     _flight = GetNode<RichTextLabel>("FLIGHT");
     _fuel = GetNode<RichTextLabel>("FUEL");
+
+    _warningTone = GetNode<AudioStreamPlayer>("WarningTone");
 
 
     List<TextureRect> frictionLights = new List<TextureRect>();
@@ -279,6 +283,16 @@ public class UI : Control
     {
       lightsOn = 0;
     }
+    if (update.PlayerAlive && lightsOn > 0 && !_warningTone.Playing)
+    {
+      _warningTone.Play();
+    } else
+    {
+      _warningTone.Playing = false;
+    }
+
+    _warningTone.VolumeDb = -25 + (5 * lightsOn);
+    _warningTone.PitchScale = 0.6f + (0.1f * lightsOn);
     foreach (var l in _proximity)
     {
       if (i > lightsOn)

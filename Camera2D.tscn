@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://fonts/zector/zector.tres" type="DynamicFont" id=1]
 [ext_resource path="res://images/FrictionLight.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://images/BackdropStarsBacking.png" type="Texture" id=10]
 [ext_resource path="res://images/uibutton.tres" type="Theme" id=11]
 [ext_resource path="res://images/menubutton.tres" type="Theme" id=12]
+[ext_resource path="res://sound/effects/tone.mp3" type="AudioStream" id=13]
 
 [node name="Camera2D" type="Camera2D"]
 rotating = true
@@ -310,6 +311,9 @@ margin_right = -99.0
 margin_bottom = 20.0
 theme = ExtResource( 12 )
 text = "Reset"
+
+[node name="WarningTone" type="AudioStreamPlayer" parent="UI"]
+stream = ExtResource( 13 )
 
 [connection signal="button_down" from="UI/Thrust" to="UI" method="OnPressUp"]
 [connection signal="button_up" from="UI/Thrust" to="UI" method="OnReleaseUp"]
