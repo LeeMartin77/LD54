@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: lossofsignal
-          image: ghcr.io/leemartin77/LD54:bleed
+          image: ghcr.io/leemartin77/ld54:bleed
           imagePullPolicy: IfNotPresent
           resources:
             limits:

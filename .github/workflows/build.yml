@@ -69,8 +69,8 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           tags: |
-            ghcr.io/leemartin77/LD54:bleed
-            ghcr.io/leemartin77/LD54:${{ github.sha }}
+            ghcr.io/leemartin77/ld54:bleed
+            ghcr.io/leemartin77/ld54:${{ github.sha }}
           context: .
           platforms: linux/arm/v7,linux/arm64/v8,linux/amd64
           push: true
@@ -85,7 +85,7 @@ jobs:
         with:
           token: ${{ github.token }}
       - name: Set new version
-        run: yq e -i '.spec.template.spec.containers[0].image = "ghcr.io/leemartin77/LD54:${{ github.sha }}"' kustomize/deployment.yml
+        run: yq e -i '.spec.template.spec.containers[0].image = "ghcr.io/leemartin77/ld54:${{ github.sha }}"' kustomize/deployment.yml
       - name: Commit and Push version
         run: |
           git config --global user.name 'Lee Martin[Automated]'
