@@ -30,11 +30,6 @@ script = ExtResource( 4 )
 FilamentMaxDangerPeriodSeconds = 3.0
 FrictionlessThrustFactor = 1.75
 
-[node name="Camera" parent="." instance=ExtResource( 5 )]
-script = ExtResource( 6 )
-LevelName = "Vega"
-Difficulty = 2
-
 [node name="StartPoint" type="Node2D" parent="."]
 
 [node name="EndZone" parent="." instance=ExtResource( 1 )]
@@ -85,6 +80,11 @@ MovementSpeed = 120.0
 [node name="Surge7" parent="." instance=ExtResource( 8 )]
 position = Vector2( 786, 1476 )
 MovementSpeed = 170.0
+
+[node name="Camera" parent="." instance=ExtResource( 5 )]
+script = ExtResource( 6 )
+LevelName = "Vega"
+Difficulty = 2
 
 [connection signal="body_entered" from="Surge" to="Surge" method="OnSurgeBodyEntered"]
 [connection signal="body_entered" from="Surge2" to="Surge2" method="OnSurgeBodyEntered"]

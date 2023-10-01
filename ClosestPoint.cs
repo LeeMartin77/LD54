@@ -20,7 +20,6 @@ public class ClosestPoint : Node2D
   {
     var lastPoint = _filament.Points[0];
     Vector2 closestPoint = lastPoint; // bit of a cheaty hack
-    (Vector2, Vector2) segment = (lastPoint, lastPoint);
     foreach (var vec in _filament.Points)
     {
       var loopPoint = Geometry.GetClosestPointToSegment2d(_player.Position, lastPoint, vec);
@@ -28,7 +27,6 @@ public class ClosestPoint : Node2D
       if (_player.Position.DistanceTo(loopPoint) < _player.Position.DistanceTo(closestPoint))
       {
         closestPoint = loopPoint;
-        segment = (lastPoint, vec);
       }
       lastPoint = vec;
     }
@@ -41,8 +39,8 @@ public class ClosestPoint : Node2D
     {
       _particles.Visible = true;
       var closeness = 1 - (Position.DistanceTo(_player.Position) / _player.FilamentRideStart);
-      _particles.Modulate = new Color(255, 255, 255, closeness);
-      _particles.Scale = new Vector2(12, 24 * closeness);
+      _particles.Modulate = new Color(255, 255, 255, closeness * 0.5f);
+      _particles.Scale = new Vector2(12, 18 * closeness);
     }
     else
     {
