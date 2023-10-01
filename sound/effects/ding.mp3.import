@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/ding.mp3-b69a5086b1b4d2ca1d1528697f196d0a.mp3str"
+
+[deps]
+
+source_file="res://sound/effects/ding.mp3"
+dest_files=[ "res://.import/ding.mp3-b69a5086b1b4d2ca1d1528697f196d0a.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

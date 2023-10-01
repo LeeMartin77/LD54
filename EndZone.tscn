@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://EndZone.cs" type="Script" id=1]
 [ext_resource path="res://images/FinishArea.png" type="Texture" id=2]
 [ext_resource path="res://fonts/zector/zector.tres" type="DynamicFont" id=3]
+[ext_resource path="res://sound/effects/ding.mp3" type="AudioStream" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 134.66
@@ -28,6 +29,10 @@ rect_scale = Vector2( 0.5, 0.5 )
 custom_fonts/normal_font = ExtResource( 3 )
 text = "DOCKING
 0.000"
+
+[node name="Success" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+pitch_scale = 1.51
 
 [connection signal="body_entered" from="." to="." method="OnEndZoneBodyEntered"]
 [connection signal="body_exited" from="." to="." method="OnEndZoneBodyExited"]

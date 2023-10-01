@@ -10,6 +10,9 @@ public class EndZone : Area2D
   private Sprite _sprite;
   private RichTextLabel _label;
 
+  private bool _hasDinged = false;
+  private float _dingTime = 0.0f; // I'm sure there is a "proper" way of doing this but fuck it
+
   public override void _Ready()
   {
 
@@ -72,6 +75,20 @@ public class EndZone : Area2D
     else
     {
       _label.Visible = false;
+    }
+
+    if (_playerInZone && _successTimer <= 0 && !_hasDinged)
+    {
+      _hasDinged = true;
+      GetNode<AudioStreamPlayer>("Success").Play();
+    }
+    if (_hasDinged)
+    {
+      _dingTime += delta;
+      if (_dingTime > 1.2f)
+      {
+        GetNode<AudioStreamPlayer>("Success").Stop();
+      }
     }
   }
 }
