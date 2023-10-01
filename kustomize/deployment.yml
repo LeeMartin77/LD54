@@ -19,7 +19,7 @@ spec:
       containers:
         - name: lossofsignal
           image: ghcr.io/leemartin77/ld54:c4522721ddd1226779a5315b5b5c2c0781bcabdc
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           resources:
             limits:
               cpu: 500m
