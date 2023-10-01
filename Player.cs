@@ -48,6 +48,8 @@ public class Player : RigidBody2D
 
   public float TimeInDangerZone = 0.0f;
 
+  public bool ExplodeOnDeath = true;
+
     private float _remainingFuel = 99.9f;
 
   // Called when the node enters the scene tree for the first time.
@@ -191,10 +193,15 @@ public class Player : RigidBody2D
       TimeTilDestruction = (FilamentMaxDangerPeriodSeconds, TimeInDangerZone)
     });
 
-    if (!Alive && _ship.Visible)
+    if (!Alive && _ship.Visible && ExplodeOnDeath)
     {
       _ship.Visible = false;
       _explosion.Emitting = true;
+    }
+
+    if (!Alive && !ExplodeOnDeath)
+    {
+      _ship.Scale = _ship.Scale * Mathf.Lerp(_ship.Scale.x, 0, delta * 0.75f);
     }
 
     if (Alive && Input.IsActionPressed("up") && _remainingFuel > 0)
