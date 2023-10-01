@@ -35,7 +35,7 @@ FrictionlessThrustFactor = 1.75
 [node name="EndZone" parent="." instance=ExtResource( 1 )]
 position = Vector2( 80, -562 )
 script = ExtResource( 8 )
-MovementSpeed = 125.0
+MovementSpeed = 225.0
 
 [node name="ClosestPoint" parent="." instance=ExtResource( 3 )]
 
