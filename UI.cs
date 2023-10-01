@@ -163,6 +163,10 @@ public class UI : Control
     {
       _reset.Modulate = LitButton;
     }
+    else if (!_latestUpdate.PlayerAlive || _latestUpdate.PlayerVictorious)
+    {
+      _reset.Modulate = new Color(255, 255, 255);
+    }
     else
     {
       _reset.Modulate = OffColor;
@@ -192,7 +196,7 @@ public class UI : Control
       }
       if (update.PlayerVictorious)
       {
-        GetNode<RichTextLabel>("EndScreen/Score").Text = $"{Math.Max(update.RemainingFuel * (500 - flightTime), 0):000000.00}";
+        GetNode<RichTextLabel>("EndScreen/Score").Text = $"{Math.Max((update.RemainingFuel * (500 - flightTime)) / 100, 0):0000}";
       }
       else
       {
@@ -206,6 +210,11 @@ public class UI : Control
     {
         _stat.Text = "NULL";
         _stat.Modulate = OffColor;
+        _prx.Modulate = OffColor;
+        _frc.Modulate = OffColor;
+        _flight.Modulate = OffColor;
+        _spd.Modulate = OffColor;
+        _fuel.Modulate = OffColor;
     } else if (update.RemainingFuel < 5f)
     {
         _stat.Text = "FUEL";
@@ -223,14 +232,24 @@ public class UI : Control
     _fuel.Text = $"FUEL {update.RemainingFuel:00.0}";
     UpdateFrictionLights(update);
     UpdateProximityLights(update);
-    _spd.Text = $"{update.Speed:0000} SPD";
+    if(update.PlayerAlive)
+    {
+      _spd.Text = $"{update.Speed:0000} SPD";
+    }
+    else
+    {
+      _spd.Text = $"0000 SPD";
+    }
   }
 
   private void UpdateFrictionLights(UIUpdate update)
   {
     int i = 0;
     int lightsOn = (int)Math.Floor(5 * ((update.MaxFriction - update.Friction) / update.MaxFriction));
-    if (update.Friction == 0)
+    if (!update.PlayerAlive)
+    {
+      lightsOn = 0;
+    } else if (update.Friction == 0)
     {
       lightsOn = 5;
     }
@@ -256,6 +275,10 @@ public class UI : Control
     int i = 1;
     var (maxTime, currentTime) = update.TimeTilDestruction;
     int lightsOn = (int)Math.Floor(5 * (currentTime / maxTime));
+    if (!update.PlayerAlive)
+    {
+      lightsOn = 0;
+    }
     foreach (var l in _proximity)
     {
       if (i > lightsOn)
