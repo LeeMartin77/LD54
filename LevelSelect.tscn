@@ -68,30 +68,57 @@ text = "Level Select"
 
 [node name="Title2" type="RichTextLabel" parent="."]
 margin_left = 32.0
-margin_top = 212.0
+margin_top = 201.0
 margin_right = 408.0
-margin_bottom = 275.0
+margin_bottom = 264.0
 rect_scale = Vector2( 0.5, 0.5 )
 custom_fonts/normal_font = ExtResource( 4 )
 text = "Apprentice"
 
 [node name="Title3" type="RichTextLabel" parent="."]
 margin_left = 32.0
-margin_top = 343.0
+margin_top = 332.0
 margin_right = 408.0
-margin_bottom = 406.0
+margin_bottom = 395.0
 rect_scale = Vector2( 0.5, 0.5 )
 custom_fonts/normal_font = ExtResource( 4 )
 text = "Journeyman"
 
 [node name="Title4" type="RichTextLabel" parent="."]
 margin_left = 32.0
-margin_top = 478.0
+margin_top = 467.0
 margin_right = 408.0
-margin_bottom = 541.0
+margin_bottom = 530.0
 rect_scale = Vector2( 0.5, 0.5 )
 custom_fonts/normal_font = ExtResource( 4 )
 text = "master"
+
+[node name="Title5" type="RichTextLabel" parent="."]
+margin_left = 36.0
+margin_top = 507.0
+margin_right = 412.0
+margin_bottom = 570.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/normal_font = ExtResource( 4 )
+text = "chase"
+
+[node name="Title6" type="RichTextLabel" parent="."]
+margin_left = 218.0
+margin_top = 507.0
+margin_right = 594.0
+margin_bottom = 570.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/normal_font = ExtResource( 4 )
+text = "Surge"
+
+[node name="Title7" type="RichTextLabel" parent="."]
+margin_left = 390.0
+margin_top = 507.0
+margin_right = 766.0
+margin_bottom = 570.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/normal_font = ExtResource( 4 )
+text = "grav"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -168,24 +195,24 @@ text = "Antares"
 
 [node name="Level7" type="Button" parent="Control"]
 margin_left = 30.0
-margin_top = 512.0
+margin_top = 529.0
 margin_right = 190.0
-margin_bottom = 558.0
+margin_bottom = 575.0
 theme = ExtResource( 8 )
 text = "polaris"
 
 [node name="Level8" type="Button" parent="Control"]
 margin_left = 208.0
-margin_top = 512.0
+margin_top = 529.0
 margin_right = 368.0
-margin_bottom = 558.0
+margin_bottom = 575.0
 theme = ExtResource( 8 )
 text = "vega"
 
 [node name="Level9" type="Button" parent="Control"]
 margin_left = 383.0
-margin_top = 512.0
+margin_top = 529.0
 margin_right = 543.0
-margin_bottom = 558.0
+margin_bottom = 575.0
 theme = ExtResource( 8 )
 text = "pleiades"

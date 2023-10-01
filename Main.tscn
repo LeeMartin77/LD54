@@ -66,6 +66,19 @@ text = "LOSS
 OF
 SIGNAL"
 
+[node name="Title2" type="RichTextLabel" parent="."]
+margin_left = 26.0
+margin_top = 744.0
+margin_right = 682.0
+margin_bottom = 1084.0
+rect_scale = Vector2( 0.75, 0.7 )
+custom_fonts/normal_font = ExtResource( 5 )
+text = "w/up    - Thrust
+a/left  - turn left
+d/right - turn right
+r       - reset
+"
+
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Control" type="Control" parent="."]
