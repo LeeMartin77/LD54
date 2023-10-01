@@ -39,6 +39,7 @@ public class Player : RigidBody2D
   private AnimatedSprite _exhaust;
   private AnimatedSprite _left;
   private AnimatedSprite _right;
+  private AnimatedSprite _crackle;
 
   private CPUParticles2D _explosion;
   private Sprite _ship;
@@ -64,6 +65,7 @@ public class Player : RigidBody2D
     _ship = GetNode<Sprite>("Ship");
     _left = GetNode<AnimatedSprite>("Left");
     _right = GetNode<AnimatedSprite>("Right");
+    _crackle = GetNode<AnimatedSprite>("Crackle");
 
     Friction = DefaultFriction;
   }
@@ -204,8 +206,19 @@ public class Player : RigidBody2D
       _ship.Scale = _ship.Scale * Mathf.Lerp(_ship.Scale.x, 0, delta * 0.75f);
     }
 
+    _crackle.Visible = Alive && Friction == 0;
+
     if (Alive && Input.IsActionPressed("up") && _remainingFuel > 0)
     {
+      if (Friction == 0)
+      {
+
+        _exhaust.Scale = new Vector2(1, 1) * FrictionlessThrustFactor;
+      }
+      else
+      {
+        _exhaust.Scale = new Vector2(1, 1);
+      }
       _exhaust.Show();
     } 
     else

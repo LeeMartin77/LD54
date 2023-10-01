@@ -40,7 +40,7 @@ Difficulty = 2
 [node name="EndZone" parent="." instance=ExtResource( 1 )]
 position = Vector2( 80, -562 )
 script = ExtResource( 8 )
-MovementSpeed = 100.0
+MovementSpeed = 125.0
 
 [node name="ClosestPoint" parent="." instance=ExtResource( 3 )]
 
