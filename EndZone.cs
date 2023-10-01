@@ -3,15 +3,9 @@ using System;
 
 public class EndZone : Area2D
 {
-  // Declare member variables here. Examples:
-  // private int a = 2;
-  // private string b = "text";
+  protected bool _playerInZone = false;
 
-  // Called when the node enters the scene tree for the first time.
-
-  private bool _playerInZone = false;
-
-  private float _successTimer = 1.5f;
+  protected float _successTimer = 1.5f;
 
   private Sprite _sprite;
   private RichTextLabel _label;
@@ -51,8 +45,10 @@ public class EndZone : Area2D
   public override void _Process(float delta)
   {
     base._Process(delta);
-
-    _successTimer = Math.Max(0, _successTimer - delta);
+    if (_playerInZone)
+    {
+      _successTimer = Math.Max(0, _successTimer - delta);
+    }
 
     if (_playerInZone && _successTimer > 0)
     {
