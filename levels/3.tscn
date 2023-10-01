@@ -26,7 +26,6 @@ _data = [ Vector2( 0.0045045, 0.463636 ), 0.0, 0.0, 0, 0, Vector2( 0.108108, 0.6
 script = ExtResource( 4 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-FilamentMaxDangerPeriodSeconds = 3.0
 
 [node name="Camera" parent="." instance=ExtResource( 5 )]
 script = ExtResource( 6 )
@@ -36,13 +35,13 @@ Difficulty = 0
 [node name="StartPoint" type="Node2D" parent="."]
 
 [node name="EndZone" parent="." instance=ExtResource( 1 )]
-position = Vector2( 2486, -3033 )
+position = Vector2( 2279, -3683 )
 
 [node name="ClosestPoint" parent="." instance=ExtResource( 3 )]
 
 [node name="Filament" type="Line2D" parent="."]
 material = SubResource( 3 )
-points = PoolVector2Array( -1412, 1239, -676.852, 333.193, -583.691, 218.405, -512, 115, -435, 5, -300, -59, -236, -250, -67, -368, 52, -601, 244, -737, 437, -858, 558, -1043, 651, -1264, 693, -1471, 779, -1599, 957, -1642, 1114, -1642, 1264, -1685, 1420, -1813, 1613, -1977, 1613, -2262, 1577, -2533, 1763, -2547, 1713, -2782, 1848, -2904, 1898, -3068, 2083, -3146, 2162, -3317, 2418.96, -3462.57, 3281, -3730 )
+points = PoolVector2Array( -1412, 1239, -676.852, 333.193, -583.691, 218.405, -512, 115, -435, 5, -300, -59, -236, -250, -67, -368, 52, -601, 244, -737, 437, -858, 558, -1043, 651, -1264, 693, -1471, 779, -1599, 957, -1642, 1114, -1642, 1264, -1685, 1420, -1813, 1613, -1977, 1613, -2262, 1577, -2533, 1763, -2547, 1713, -2782, 1848, -2904, 1898, -3068, 2083, -3146, 2379, -3293, 2551, -3686, 2465, -3968, 2294, -4125, 2198, -4361, 2072.89, -4538.42, 1966, -4729 )
 width = 75.0
 width_curve = SubResource( 1 )
 default_color = Color( 0.588235, 0.627451, 0.839216, 1 )
