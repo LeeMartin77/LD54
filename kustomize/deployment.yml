@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: lossofsignal
-          image: ghcr.io/leemartin77/ld54:52e04957fbb7440d07244a3a6a1a93d8e0c8f994
+          image: ghcr.io/leemartin77/ld54:f768179357d333ea366b6e0c07df06d4f26c020e
           imagePullPolicy: IfNotPresent
           resources:
             limits:
