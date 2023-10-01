@@ -162,11 +162,11 @@ public class Player : RigidBody2D
     }
     if (Input.IsActionPressed("left"))
     {
-      AngularVelocity += RotationSpeed * delta;
+      AngularVelocity -= RotationSpeed * delta;
     }
     if (Input.IsActionPressed("right"))
     {
-      AngularVelocity -= RotationSpeed * delta;
+      AngularVelocity += RotationSpeed * delta;
     }
   }
 
@@ -208,20 +208,20 @@ public class Player : RigidBody2D
 
     if (Alive && Input.IsActionPressed("left"))
     {
-      _left.Show();
-    }
-    else
-    {
-      _left.Hide();
-    }
-
-    if (Alive && Input.IsActionPressed("right"))
-    {
       _right.Show();
     }
     else
     {
       _right.Hide();
+    }
+
+    if (Alive && Input.IsActionPressed("right"))
+    {
+      _left.Show();
+    }
+    else
+    {
+      _left.Hide();
     }
 
     base._Process(delta);
