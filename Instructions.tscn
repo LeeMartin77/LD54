@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://images/BackdropStarsBacking.png" type="Texture" id=1]
 [ext_resource path="res://images/BackdropStars3.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://images/BackdropStars1.png" type="Texture" id=7]
 [ext_resource path="res://images/ProxLight.png" type="Texture" id=8]
 [ext_resource path="res://images/menubutton.tres" type="Theme" id=9]
+[ext_resource path="res://EndZone.tscn" type="PackedScene" id=10]
 
 [node name="World" type="Node2D"]
 
@@ -228,6 +229,16 @@ theme = ExtResource( 9 )
 custom_fonts/font = ExtResource( 4 )
 text = "LEVELS"
 
+[node name="FRC3" type="RichTextLabel" parent="Control"]
+margin_left = -67.0455
+margin_top = 748.864
+margin_right = 818.91
+margin_bottom = 812.864
+rect_scale = Vector2( 0.6, 0.6 )
+rect_pivot_offset = Vector2( 270, 107 )
+custom_fonts/normal_font = ExtResource( 4 )
+text = "Finish:"
+
 [node name="Main" type="Button" parent="Control"]
 margin_left = 348.0
 margin_top = 941.0
@@ -236,3 +247,8 @@ margin_bottom = 1004.0
 theme = ExtResource( 9 )
 custom_fonts/font = ExtResource( 4 )
 text = "MAIN"
+
+[node name="EndZone" parent="." instance=ExtResource( 10 )]
+position = Vector2( 142, 809 )
+scale = Vector2( 0.5, 0.5 )
+script = null
