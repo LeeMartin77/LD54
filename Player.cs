@@ -22,14 +22,17 @@ public class Player : RigidBody2D
 
 
   [Export]
-  public float RequiredEndzoneTime = 1.5f;
+  public float RequiredEndzoneTime = 2.0f;
+
+  [Export]
+  public float FrictionlessThrustFactor = 1.25f;
 
 
   [Export]
   public float RotationSpeed = 2f;
 
   [Export]
-  public float DefaultFriction = 0.5f;
+  public float DefaultFriction = 0.75f;
 
   private Node2D _closestFilamentPoint;
 
@@ -153,7 +156,8 @@ public class Player : RigidBody2D
     {
             // We only ever go "up"
             _remainingFuel = Math.Max(0, _remainingFuel - delta);
-      Vector2 angledThrust = (new Vector2(0, -1) * (delta * Thrust)).Rotated(Rotation);
+      float factor = Friction == 0 ? FrictionlessThrustFactor : 1;
+      Vector2 angledThrust = (new Vector2(0, -1) * (delta * Thrust * factor)).Rotated(Rotation);
       LinearVelocity += angledThrust;
     }
     if (Input.IsActionPressed("left"))
