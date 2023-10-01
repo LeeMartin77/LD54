@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: lossofsignal
+  name: lossofsignal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lossofsignal
+  template:
+    metadata:
+      labels:
+        app: lossofsignal
+      namespace: lossofsignal
+      name: lossofsignal
+    spec:
+      containers:
+        - name: lossofsignal
+          image: ghcr.io/leemartin77/LD54:bleed
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: 500m
+              memory: 500Mi
+            requests:
+              cpu: 500m
+              memory: 500Mi
+          ports:
+            - name: http
+              containerPort: 80
