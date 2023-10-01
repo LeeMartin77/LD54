@@ -44,6 +44,8 @@ public class Player : RigidBody2D
 
   private AudioStreamPlayer _mainThrusterAudio;
   private AudioStreamPlayer _sideThrusterAudio;
+  private AudioStreamPlayer _crackleSound;
+  bool _crackleSoundPlaying = false;
 
   private CPUParticles2D _explosion;
   private Sprite _ship;
@@ -70,6 +72,7 @@ public class Player : RigidBody2D
     _left = GetNode<AnimatedSprite>("Left");
     _right = GetNode<AnimatedSprite>("Right");
     _crackle = GetNode<AnimatedSprite>("Crackle");
+    _crackleSound = GetNode<AudioStreamPlayer>("CrackleNoise");
 
     _mainThrusterAudio = GetNode<AudioStreamPlayer>("MainThruster");
     _sideThrusterAudio = GetNode<AudioStreamPlayer>("SideThruster");
@@ -214,6 +217,16 @@ public class Player : RigidBody2D
     }
 
     _crackle.Visible = Alive && Friction == 0;
+    //if (Alive && Friction == 0 && !_crackleSoundPlaying)
+    //{
+    //  _crackleSoundPlaying = true;
+    //  _crackleSound.Play();
+    //} 
+    //else
+    //{
+    //  _crackleSoundPlaying = false;
+    //  _crackleSound.Stop();
+    //}
 
     if (Alive && Input.IsActionPressed("up") && _remainingFuel > 0)
     {
