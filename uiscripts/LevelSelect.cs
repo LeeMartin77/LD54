@@ -45,6 +45,7 @@ public class LevelSelect : Control
       {
         GetTree().ChangeScene($"res://levels/{i}.tscn");
       }
+      i++;
     }
   }
 
